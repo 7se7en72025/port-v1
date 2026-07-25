@@ -116,11 +116,12 @@ export default function Home() {
               {/* The inner image */}
               <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
                 <Image
-                  src="https://github.com/ashutoshx7.png"
+                  src="/avatar.png"
                   alt="Profile"
                   width={240}
                   height={240}
                   quality={90}
+                  priority
                   fetchPriority="high"
                   sizes="(min-width: 640px) 120px, 96px"
                   className="h-full w-full origin-center translate-y-1 scale-[1.1] object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
