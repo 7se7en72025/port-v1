@@ -11,6 +11,7 @@ import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
 import Link from "next/link";
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
+import { FlipCoverButton } from "@/components/pixel-perfect/flip-cover-button";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
 import { BannerParticles } from "@/components/BannerParticles";
 import { FileText } from "lucide-react";
@@ -159,23 +160,7 @@ export default function Home() {
 
         {/* Buttons */}
         <div className="flex flex-wrap items-center gap-2 mt-4">
-          <Link href="/contact">
-            <SoftPillButton
-              as="span"
-              variant="primary"
-              className="px-3 py-1.5 !text-[12px]"
-            >
-              <div className="flex items-center gap-1.5">
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                Book an intro call
-              </div>
-            </SoftPillButton>
-          </Link>
+          <FlipCoverButton href="https://cal.com/ashutosh-singh-1fqn5v/30min" label="Book an intro call" />
           <Link href="/contact">
             <SoftPillButton
               as="span"
