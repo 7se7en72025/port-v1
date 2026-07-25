@@ -19,29 +19,20 @@ import { ClickRipple } from "@/components/ClickRipple";
 import { TypingText } from "@/components/TypingText";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { ScrambleText } from "@/components/ScrambleText";
 import {
   siCncf,
-  siDart,
   siFigma,
   siFlutter,
-  siGit,
   siGithub,
   siGo,
-  siGsap,
-  siJavascript,
-  siKotlin,
   siKubernetes,
-  siLinux,
   siNextdotjs,
-  siOpenapiinitiative,
   siPostgresql,
   siPython,
   siReact,
-  siThreedotjs,
   siTypescript,
 } from "simple-icons";
-import { FlipCoverButton } from "@/components/pixel-perfect/flip-cover-button";
+
 import { FileText } from "lucide-react";
 import Image from "next/image";
 import { hasResume, siteConfig } from "@/data/siteConfig";
@@ -49,25 +40,24 @@ import { hasResume, siteConfig } from "@/data/siteConfig";
 // Icon paths are inlined from the simple-icons package rather than fetched from
 // cdn.simpleicons.org — the CDN request can hang or fail, and a broken <img>
 // paints its alt text over the label. Inlining also renders them server-side.
+// Nine, not eighteen. A long list reads as "I have touched these"; a short one
+// reads as "ask me anything about these." Everything here is backed by shipped
+// work elsewhere on the page — Go and Kubernetes by the CNCF PRs, Flutter by
+// Nudron, Figma by the design lead roles.
+//
+// Cut on purpose: Git and GitHub aren't skills, they're literacy. JavaScript is
+// implied by TypeScript and Dart by Flutter. Three.js, GSAP, Kotlin and Linux
+// were padding — the portfolio itself is the Three.js and GSAP evidence.
 const skills = [
   { name: "Go", icon: siGo },
   { name: "Python", icon: siPython },
-  { name: "JavaScript", icon: siJavascript },
   { name: "TypeScript", icon: siTypescript },
-  { name: "Dart", icon: siDart },
-  { name: "Kotlin", icon: siKotlin },
-  { name: "Flutter", icon: siFlutter },
   { name: "React", icon: siReact },
-  { name: "Three.js", icon: siThreedotjs },
-  { name: "GSAP", icon: siGsap },
   { name: "Next", icon: siNextdotjs },
-  { name: "PostgreSQL", icon: siPostgresql },
   { name: "Kubernetes", icon: siKubernetes },
-  { name: "REST APIs", icon: siOpenapiinitiative },
-  { name: "Git", icon: siGit },
-  { name: "Github", icon: siGithub },
+  { name: "PostgreSQL", icon: siPostgresql },
+  { name: "Flutter", icon: siFlutter },
   { name: "Figma", icon: siFigma },
-  { name: "Linux", icon: siLinux },
 ];
 
 // Organisations carrying merged code, shown directly under the intro. Every
@@ -223,14 +213,14 @@ export default function Home() {
       <div className="ml-0 mr-0 md:ml-[var(--frame-gutter)] md:mr-[var(--frame-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
         <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
           <span className="font-semibold text-zinc-900 dark:text-white">Full-stack Developer / Designer.</span>{" "}
-          <TypingText text="I build for the web and ship to open source." delay={2500} speed={30} />
+          <TypingText text="Kubernetes tooling, education software, and a placement platform for my campus." delay={2500} speed={30} />
         </p>
 
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
-          <li className="flex gap-1.5"><span>•</span><span>Author and maintainer of <span className="font-semibold text-zinc-900 dark:text-white">NYXA UI</span> — 53 stars, MIT licensed.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Co-founder of <a href={siteConfig.wscUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 underline decoration-black/20 underline-offset-[3px] transition-colors hover:decoration-black/60 dark:text-white dark:decoration-white/25 dark:hover:decoration-white/60">WonStepCareer</a> — skill-based campus placement, live at BITS Pilani.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged upstream into <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span>, <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span>, and <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs</span>.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>AI/ML for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>&apos;s geotechnical survey of 200km of national highway.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged upstream into <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> and <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> — Kubernetes policy enforcement and chaos engineering, both CNCF — plus <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs</span>.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Built <a href={siteConfig.wscUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 underline decoration-black/20 underline-offset-[3px] transition-colors hover:decoration-black/60 dark:text-white dark:decoration-white/25 dark:hover:decoration-white/60">WonStepCareer</a> after watching capable batchmates get filtered out by branch and CGPA before a human read their resume. It matches on verified skills instead. Live at BITS Pilani.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Computer vision over satellite imagery and LiDAR for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>&apos;s geotechnical survey of NH-208 — 200km of highway risk-scored in 48 hours instead of months of manual survey.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Maintain <span className="font-semibold text-zinc-900 dark:text-white">NYXA UI</span>, a component library I still ship from. 53 stars, MIT.</span></li>
         </ul>
 
         {/* Provenance strip — who is running this code, above the fold. */}
@@ -266,12 +256,22 @@ export default function Home() {
 
         <GithubStats />
 
+        {/* Stats */}
+        <p className="text-[12px] text-zinc-400 mt-4">3 apps · 6+ projects · 1000+ users</p>
+
         {/* Buttons */}
-        <div className="flex flex-wrap items-center gap-2 mt-4">
-          {/* Only rendered once a booking link exists — a dead CTA is worse than none. */}
-          {siteConfig.calBookingUrl && (
-            <FlipCoverButton href={siteConfig.calBookingUrl} label="Book an intro call" />
-          )}
+        <div className="flex flex-wrap items-center gap-2 mt-3">
+          <a href="https://wa.me/918210025925" target="_blank" rel="noopener noreferrer">
+            <SoftPillButton as="span" variant="secondary" className="px-3 py-1.5 !text-[12px]">
+              <div className="flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
+                Let's build something
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </div>
+            </SoftPillButton>
+          </a>
           <Link href="/contact">
             <SoftPillButton
               as="span"
@@ -525,6 +525,14 @@ export default function Home() {
               <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
             </div>
           </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-12 mb-8 text-center">
+          <p className="text-[11px] text-zinc-400">
+            <a href="https://github.com/7se7en72025/port-v1" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors underline underline-offset-2 decoration-zinc-300 dark:decoration-zinc-700">built this</a>
+            {' '}· Next.js + Tailwind
+          </p>
         </div>
 
         {/* Fading Grid Filler */}

@@ -22,12 +22,13 @@ const HELP_TEXT = `Available commands:
               scramble, gradient, counter,
               progress, dissolve)`;
 
-const ABOUT_TEXT = `NSA Raiyyan. 19. BITS Pilani.
+const ABOUT_TEXT = `NSA Raiyyan. BITS Pilani.
 Full-stack Developer / Designer.
-I build for the web and ship to open source.`;
+Kubernetes tooling, education software, and a
+placement platform for my campus.`;
 
-const SKILLS_TEXT = `Next.js, React, TypeScript, Tailwind CSS, Python, Go, Flutter,
-Figma, UI/UX Design, Machine Learning, Git`;
+const SKILLS_TEXT = `Go, Python, TypeScript, React, Next.js,
+Kubernetes, PostgreSQL, Flutter, Figma`;
 
 const SOCIALS_TEXT = `GitHub  : github.com/7se7en72025
 Email   : f20241312a@pilani.bits-pilani.ac.in`;
