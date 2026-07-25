@@ -30,6 +30,7 @@ import {
   siPostgresql,
   siPython,
   siReact,
+  siRust,
   siTypescript,
 } from "simple-icons";
 
@@ -50,6 +51,7 @@ import { hasResume, siteConfig } from "@/data/siteConfig";
 // were padding — the portfolio itself is the Three.js and GSAP evidence.
 const skills = [
   { name: "Go", icon: siGo },
+  { name: "Rust", icon: siRust },
   { name: "Python", icon: siPython },
   { name: "TypeScript", icon: siTypescript },
   { name: "React", icon: siReact },
@@ -58,6 +60,30 @@ const skills = [
   { name: "PostgreSQL", icon: siPostgresql },
   { name: "Flutter", icon: siFlutter },
   { name: "Figma", icon: siFigma },
+];
+
+// Shipped-product stats, sitting directly above the CTA. Same rule as the
+// provenance strip below: every figure resolves to a public page that shows it.
+//
+// Checked against the Play Store listings on 26 Jul 2026. Both apps read "1K+
+// downloads", so the combined floor is 2K+ — Google buckets these, it is not a
+// precise count, which is why the label says "downloads" and not "users".
+const shipped = [
+  {
+    value: "2",
+    label: "apps on Google Play",
+    href: "https://play.google.com/store/apps/details?id=com.dvm.oasis2025rn&hl=en_IN",
+  },
+  {
+    value: "2K+",
+    label: "downloads",
+    href: "https://play.google.com/store/apps/details?id=org.bitsdvm.apogee2026&hl=en_IN",
+  },
+  {
+    value: "4.6",
+    label: "rated on Oasis",
+    href: "https://play.google.com/store/apps/details?id=com.dvm.oasis2025rn&hl=en_IN",
+  },
 ];
 
 // Organisations carrying merged code, shown directly under the intro. Every
@@ -198,6 +224,7 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <p className="text-[13px] sm:text-[14px] xl:text-[15px] text-zinc-500 dark:text-zinc-400">BITS Pilani</p>
               </div>
+              <p className="text-[11px] sm:text-[12px] text-zinc-400 dark:text-zinc-500 mt-1 italic">"I sketch things before I build them, and I build things before I trust them."</p>
             </div>
           </div>
 
@@ -217,10 +244,10 @@ export default function Home() {
         </p>
 
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
-          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged upstream into <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> and <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> — Kubernetes policy enforcement and chaos engineering, both CNCF — plus <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs</span>.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged upstream into <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> and <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> — Kubernetes policy enforcement and chaos engineering, both CNCF — plus <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs&apos;</span> Music Blocks.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Built <a href={siteConfig.wscUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 underline decoration-black/20 underline-offset-[3px] transition-colors hover:decoration-black/60 dark:text-white dark:decoration-white/25 dark:hover:decoration-white/60">WonStepCareer</a> after watching capable batchmates get filtered out by branch and CGPA before a human read their resume. It matches on verified skills instead. Live at BITS Pilani.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Computer vision over satellite imagery and LiDAR for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>&apos;s geotechnical survey of NH-208 — 200km of highway risk-scored in 48 hours instead of months of manual survey.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Maintain <span className="font-semibold text-zinc-900 dark:text-white">NYXA UI</span>, a component library I still ship from. 53 stars, MIT.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>For <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>: terabytes of satellite imagery, LiDAR point clouds and borehole logs through custom ML pipelines, scoring collapse risk across 200km of NH-208 at 94% accuracy — months of manual geological survey replaced by inference in under 48 hours.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Build systems for the pleasure of it: <span className="font-semibold text-zinc-900 dark:text-white">pikapika</span>, a stack-based concatenative language in Go with a hand-rolled lexer, recursive-descent parser and typed AST. <span className="font-semibold text-zinc-900 dark:text-white">OpenDiff</span>, a Rust and Actix-web pull request reviewer that caches hard to stay under GitHub&apos;s rate limit.</span></li>
         </ul>
 
         {/* Provenance strip — who is running this code, above the fold. */}
@@ -256,15 +283,38 @@ export default function Home() {
 
         <GithubStats />
 
-        {/* Stats */}
-        <p className="text-[12px] text-zinc-400 mt-4">3 apps · 6+ projects · 1000+ users</p>
+        {/* Shipped-product stats, directly above the CTA. */}
+        <div className="mt-4 flex flex-wrap items-center gap-y-2">
+          {shipped.map((stat, i) => (
+            <div key={stat.label} className="flex items-center">
+              {i > 0 && (
+                <span aria-hidden="true" className="px-2 text-zinc-300 dark:text-zinc-700">
+                  ·
+                </span>
+              )}
+              <a
+                href={stat.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-baseline gap-1.5"
+              >
+                <span className="text-[14px] font-bold tabular-nums leading-none text-zinc-900 transition-colors group-hover:text-emerald-600 dark:text-zinc-100 dark:group-hover:text-emerald-400">
+                  {stat.value}
+                </span>
+                <span className="text-[12px] text-zinc-500 underline decoration-transparent underline-offset-[3px] transition-colors group-hover:decoration-zinc-400 dark:text-zinc-400">
+                  {stat.label}
+                </span>
+              </a>
+            </div>
+          ))}
+        </div>
 
         {/* Buttons */}
         <div className="flex flex-wrap items-center gap-2 mt-3">
-          <a href="https://wa.me/918210025925" target="_blank" rel="noopener noreferrer">
+          <a href={siteConfig.socials.whatsapp} target="_blank" rel="noopener noreferrer">
             <SoftPillButton as="span" variant="secondary" className="px-3 py-1.5 !text-[12px]">
               <div className="flex items-center gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                Let's build something
+                Let&apos;s build something
                 <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <line x1="7" y1="17" x2="17" y2="7"></line>
                   <polyline points="7 7 17 7 17 17"></polyline>

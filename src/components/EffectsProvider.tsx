@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useMemo,
+  useSyncExternalStore,
+  ReactNode,
+} from "react";
 
 interface EffectsState {
   glitch: boolean;
@@ -26,6 +34,48 @@ interface EffectsContextType {
 }
 
 const EffectsContext = createContext<EffectsContextType | null>(null);
+
+const ALL_OFF: EffectsState = {
+  glitch: false,
+  particles: false,
+  typing: false,
+  sound: false,
+  ripple: false,
+  cursor: false,
+  parallax: false,
+  reveal: false,
+  noise: false,
+  scramble: false,
+  gradient: false,
+  counter: false,
+  progress: false,
+  dissolve: false,
+};
+
+/**
+ * Subscribes to a media query without copying its result into state.
+ *
+ * `useSyncExternalStore` exists for exactly this shape of problem — an external
+ * source of truth React needs to read during render. The server snapshot is
+ * always false: the server has no device to ask, and false matches what the
+ * server-rendered markup assumes.
+ */
+function useMediaQuery(query: string): boolean {
+  const subscribe = useCallback(
+    (onChange: () => void) => {
+      const list = window.matchMedia(query);
+      list.addEventListener("change", onChange);
+      return () => list.removeEventListener("change", onChange);
+    },
+    [query],
+  );
+
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => false,
+  );
+}
 
 export function useEffects() {
   const ctx = useContext(EffectsContext);
@@ -63,24 +113,7 @@ export function EffectsProvider({ children }: { children: ReactNode }) {
     dissolve: false,
   });
 
-  const revertAll = useCallback(() => {
-    setEffects({
-      glitch: false,
-      particles: false,
-      typing: false,
-      sound: false,
-      ripple: false,
-      cursor: false,
-      parallax: false,
-      reveal: false,
-      noise: false,
-      scramble: false,
-      gradient: false,
-      counter: false,
-      progress: false,
-      dissolve: false,
-    });
-  }, []);
+  const revertAll = useCallback(() => setEffects(ALL_OFF), []);
 
   const setEffect = useCallback((key: keyof EffectsState, value: boolean) => {
     setEffects((prev) => ({ ...prev, [key]: value }));
@@ -88,28 +121,24 @@ export function EffectsProvider({ children }: { children: ReactNode }) {
 
   // The CSS block in globals.css stops keyframe and transition animation, but the
   // rAF-driven effects (three.js particles, cursor follower) run in JS and never
-  // see it — they have to be switched off here. Effects start on so the
-  // server-rendered markup matches; this runs after hydration.
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => {
-      if (reduced.matches) revertAll();
-    };
-    apply();
-    reduced.addEventListener("change", apply);
-    return () => reduced.removeEventListener("change", apply);
-  }, [revertAll]);
+  // see it — they have to be switched off here.
+  //
+  // Device preferences are read, not stored. Copying them into state would mean
+  // a setState during an effect and a second render pass on every visit; both
+  // queries report false during SSR, which is also what the server markup
+  // assumes, so the first client paint matches.
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const hasCoarsePointer = useMediaQuery("(pointer: coarse)");
 
-  // A cursor follower on a touchscreen is a ring parked in a corner burning a
-  // rAF loop for the whole session.
-  useEffect(() => {
-    if (window.matchMedia("(pointer: coarse)").matches) {
-      setEffect("cursor", false);
-    }
-  }, [setEffect]);
+  const resolved = useMemo<EffectsState>(() => {
+    if (prefersReducedMotion) return ALL_OFF;
+    // A cursor follower on a touchscreen is a ring parked in a corner burning a
+    // rAF loop for the whole session.
+    return hasCoarsePointer ? { ...effects, cursor: false } : effects;
+  }, [effects, prefersReducedMotion, hasCoarsePointer]);
 
   return (
-    <EffectsContext.Provider value={{ effects, revertAll, setEffect }}>
+    <EffectsContext.Provider value={{ effects: resolved, revertAll, setEffect }}>
       {children}
     </EffectsContext.Provider>
   );
