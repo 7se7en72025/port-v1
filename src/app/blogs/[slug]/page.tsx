@@ -52,12 +52,12 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Blog | Ashutoshx7",
+      title: "Blog | NSA RAIYYAN",
     };
   }
 
   return {
-    title: `${post.title} | Ashutoshx7`,
+    title: `${post.title} | NSA RAIYYAN`,
     description: post.description,
     openGraph: {
       title: post.title,
@@ -71,11 +71,11 @@ function BlueprintFrame() {
   return (
     <>
       <div
-        className="absolute top-0 bottom-0 left-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] md:block"
+        className="absolute top-0 bottom-0 left-[var(--frame-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] md:block"
         style={verticalDashes}
       />
       <div
-        className="absolute top-0 bottom-0 right-[30%] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] md:block"
+        className="absolute top-0 bottom-0 right-[var(--frame-gutter)] hidden w-0 border-r border-black/30 pointer-events-none dark:border-white/[0.15] md:block"
         style={verticalDashes}
       />
 
@@ -89,10 +89,10 @@ function BlueprintFrame() {
       />
 
       {[
-        { top: "22vh", left: "30%" },
-        { top: "22vh", right: "30%" },
-        { top: "calc(22vh + 112px)", left: "30%" },
-        { top: "calc(22vh + 112px)", right: "30%" },
+        { top: "22vh", left: "var(--frame-gutter)" },
+        { top: "22vh", right: "var(--frame-gutter)" },
+        { top: "calc(22vh + 112px)", left: "var(--frame-gutter)" },
+        { top: "calc(22vh + 112px)", right: "var(--frame-gutter)" },
       ].map((position, index) => (
         <div
           key={index}
@@ -225,14 +225,14 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
       <RightNavbar />
       <BlueprintFrame />
 
-      <div className="absolute left-0 right-0 top-0 h-[22vh] pointer-events-auto -z-0 md:left-[30%] md:right-[30%]">
+      <div className="absolute left-0 right-0 top-0 h-[22vh] pointer-events-auto -z-0 md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)]">
         <FooterBackground />
         <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
           <CurrentTime />
         </div>
       </div>
 
-      <div className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 md:left-[30%] md:right-[30%]">
+      <div className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)]">
         <div className="flex w-full items-center justify-between gap-4">
           <div className="flex min-w-0 items-center gap-5">
             <Link
@@ -259,7 +259,7 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
         </div>
       </div>
 
-      <main className="relative z-10 ml-0 mr-0 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] md:ml-[30%] md:mr-[30%]">
+      <main className="relative z-10 ml-0 mr-0 flex flex-col px-4 pb-16 pt-[calc(22vh+112px)] md:ml-[var(--frame-gutter)] md:mr-[var(--frame-gutter)]">
         <article className="relative">
           <header className="relative py-7">
             <div className="mb-4 flex flex-wrap gap-2">

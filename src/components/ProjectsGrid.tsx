@@ -38,21 +38,40 @@ export const ProjectCard = ({
 }) => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const [shouldLoadHoverImage, setShouldLoadHoverImage] = useState(false);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const { resolvedTheme } = useTheme();
   const router = useRouter();
 
   const imageSrc = resolvedTheme === "light" && project.lightModeSrc ? project.lightModeSrc : project.src;
 
-  const isNotStarted = project.title === "Inquiro";
-  const isBuilding = project.title === "Blueprint" || project.title === "Scribble3D";
+  const status = project.status ?? "live";
+  const isNotStarted = status === "not-started";
+  const isBuilding = status === "building";
   const statusColor = isNotStarted ? "bg-zinc-400" : isBuilding ? "bg-red-500" : "bg-emerald-500";
   const statusLabel = isNotStarted ? "Not Started" : isBuilding ? "Building" : "Live";
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const tiltX = ((y - centerY) / centerY) * -8;
+    const tiltY = ((x - centerX) / centerX) * 8;
+    setTilt({ x: tiltX, y: tiltY });
+  };
+
+  const handleMouseLeave = () => {
+    setTilt({ x: 0, y: 0 });
+  };
 
   return (
     <div
       className="flex flex-col group cursor-pointer"
-      onClick={() => router.push(`/projects/${project.slug}`)}
+      onClick={() => { if (project.live && project.live.includes("play.google.com")) { window.location.href = project.live; } else { router.push(`/projects/${project.slug}`); } }}
       onMouseEnter={() => setShouldLoadHoverImage(true)}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       onFocus={() => setShouldLoadHoverImage(true)}
       onTouchStart={() => setShouldLoadHoverImage(true)}
     >
@@ -62,6 +81,10 @@ export const ProjectCard = ({
         initial="rest"
         whileHover="hover"
         animate="rest"
+        style={{
+          transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: "transform 0.15s ease-out",
+        }}
       >
         <div className="flex items-center justify-end z-10 min-h-[24px]">
           {project.hasPin && (
@@ -91,16 +114,18 @@ export const ProjectCard = ({
           transition={{ duration: 0.3, ease: "easeOut" }}
         />
 
-        <motion.h1
-          className="absolute top-4 left-4 text-[10px] font-bold text-zinc-500 dark:text-zinc-400 z-30 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
-          variants={{
-            rest: { left: "1rem", top: "1rem", x: "0%", color: "#71717a", opacity: 0 },
-            hover: { left: "50%", top: "25%", x: "-50%", color: "#ffffff", opacity: 1 },
-          }}
-          transition={{ type: "spring", stiffness: 200, damping: 25 }}
-        >
-          Play Video
-        </motion.h1>
+        {project.video && (
+          <motion.h1
+            className="absolute top-4 left-4 text-[10px] font-bold text-zinc-500 dark:text-zinc-400 z-30 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
+            variants={{
+              rest: { left: "1rem", top: "1rem", x: "0%", color: "#71717a", opacity: 0 },
+              hover: { left: "50%", top: "25%", x: "-50%", color: "#ffffff", opacity: 1 },
+            }}
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+          >
+            Play Video
+          </motion.h1>
+        )}
 
         {project.video && (
           <motion.div
@@ -132,16 +157,26 @@ export const ProjectCard = ({
           transition={{ type: "spring", stiffness: 260, damping: 20 }}
         >
           <div className="size-full overflow-hidden rounded-t-[9px]">
-            <Image
-              src={imageSrc}
-              alt={`${project.title} preview`}
-              width={600}
-              height={400}
-              preload={isPriority}
-              sizes="(min-width: 768px) 17vw, calc(100vw - 2rem)"
-              quality={70}
-              className="size-full object-cover"
-            />
+            {imageSrc ? (
+              <Image
+                src={imageSrc}
+                alt={`${project.title} preview`}
+                width={600}
+                height={400}
+                preload={isPriority}
+                sizes="(min-width: 768px) 17vw, calc(100vw - 2rem)"
+                quality={70}
+                className="size-full object-cover"
+              />
+            ) : (
+              <div
+                className="size-full opacity-[0.05] dark:opacity-[0.04]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg,transparent,transparent 23px,currentColor 23px,currentColor 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,currentColor 23px,currentColor 24px)",
+                }}
+              />
+            )}
           </div>
         </motion.div>
       </motion.div>
@@ -205,7 +240,7 @@ export const ProjectCard = ({
             })}
           </div>
 
-          <div className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-zinc-500 transition-colors cursor-pointer group-hover:text-zinc-800 dark:group-hover:text-zinc-200 sm:text-[12px]" onClick={(e) => { e.stopPropagation(); if (project.live) window.open(project.live, "_blank"); else if (project.github) window.open(project.github, "_blank"); }}>
+          <div className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-zinc-500 transition-colors cursor-pointer group-hover:text-zinc-800 dark:group-hover:text-zinc-200 sm:text-[12px]" onClick={(e) => { e.stopPropagation(); if (project.live) { if (project.live.includes("play.google.com")) { window.location.href = project.live; } else { window.open(project.live, "_blank"); } } else if (project.github) window.open(project.github, "_blank"); }}>
             View Project
             <svg viewBox="0 0 24 24" className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <line x1="7" y1="17" x2="17" y2="7"></line>

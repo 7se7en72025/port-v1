@@ -7,19 +7,18 @@ import { CurrentTime } from "@/components/CurrentTime";
 import { FooterBackground } from "@/components/FooterBackground";
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
 import { ThemeToggle } from "@/components/theme-toggle";
-
-const resumePath = "/Ashutosh-Singh-Resume.pdf";
+import { hasResume, siteConfig } from "@/data/siteConfig";
 
 export const metadata: Metadata = {
-  title: "Resume | Ashutoshx7",
-  description: "Resume of Ashutosh Singh, full-stack developer and open-source contributor.",
+  title: `Resume | ${siteConfig.name}`,
+  description: `Resume of ${siteConfig.name}, full-stack developer and open-source contributor.`,
 };
 
 export default function ResumePage() {
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-white transition-colors duration-300 dark:bg-black">
       <div
-        className="pointer-events-none absolute bottom-0 left-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block"
+        className="pointer-events-none absolute bottom-0 left-[var(--frame-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block"
         style={{
           maskImage:
             "repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)",
@@ -28,7 +27,7 @@ export default function ResumePage() {
         }}
       />
       <div
-        className="pointer-events-none absolute bottom-0 right-[30%] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block"
+        className="pointer-events-none absolute bottom-0 right-[var(--frame-gutter)] top-0 hidden w-0 border-r border-black/30 dark:border-white/[0.15] md:block"
         style={{
           maskImage:
             "repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)",
@@ -57,10 +56,10 @@ export default function ResumePage() {
       />
 
       {[
-        { top: "22vh", left: "30%" },
-        { top: "22vh", right: "30%" },
-        { top: "calc(22vh + 112px)", left: "30%" },
-        { top: "calc(22vh + 112px)", right: "30%" },
+        { top: "22vh", left: "var(--frame-gutter)" },
+        { top: "22vh", right: "var(--frame-gutter)" },
+        { top: "calc(22vh + 112px)", left: "var(--frame-gutter)" },
+        { top: "calc(22vh + 112px)", right: "var(--frame-gutter)" },
       ].map((position, index) => (
         <div
           key={index}
@@ -74,14 +73,14 @@ export default function ResumePage() {
         />
       ))}
 
-      <div className="pointer-events-auto absolute left-0 right-0 top-0 h-[22vh] md:left-[30%] md:right-[30%]">
+      <div className="pointer-events-auto absolute left-0 right-0 top-0 h-[22vh] md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)]">
         <FooterBackground />
         <div className="pointer-events-auto absolute bottom-3 right-2 z-10">
           <CurrentTime />
         </div>
       </div>
 
-      <header className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 md:left-[30%] md:right-[30%]">
+      <header className="absolute left-0 right-0 top-[22vh] z-50 flex h-[112px] items-center px-4 md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)]">
         <div className="flex w-full items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-3 sm:gap-5">
             <Link
@@ -96,7 +95,7 @@ export default function ResumePage() {
                 Resume
               </h1>
               <p className="mt-1 truncate text-[12px] text-zinc-500 dark:text-zinc-400">
-                Ashutosh Singh
+                {siteConfig.name}
               </p>
             </div>
           </div>
@@ -108,7 +107,7 @@ export default function ResumePage() {
         </div>
       </header>
 
-      <section className="relative z-10 ml-0 mr-0 flex min-h-screen flex-col px-4 pb-12 pt-[calc(22vh+112px)] md:ml-[30%] md:mr-[30%]">
+      <section className="relative z-10 ml-0 mr-0 flex min-h-screen flex-col px-4 pb-12 pt-[calc(22vh+112px)] md:ml-[var(--frame-gutter)] md:mr-[var(--frame-gutter)]">
         <div className="flex flex-wrap items-center justify-between gap-3 py-4">
           <div className="flex min-w-0 items-center gap-3">
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] border border-black/10 bg-zinc-50 text-zinc-500 dark:border-white/10 dark:bg-[#0a0a0a] dark:text-zinc-400">
@@ -116,7 +115,7 @@ export default function ResumePage() {
             </span>
             <div className="min-w-0">
               <p className="truncate text-[13px] font-semibold text-zinc-800 dark:text-zinc-200">
-                Ashutosh Singh Resume
+                {siteConfig.name} Resume
               </p>
               <p className="text-[11px] text-zinc-400 dark:text-zinc-600">
                 PDF document
@@ -124,47 +123,56 @@ export default function ResumePage() {
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            <a
-              href={resumePath}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Open resume in a new tab"
-              title="Open in new tab"
-              className="flex h-8 w-8 items-center justify-center rounded-[6px] border border-black/10 bg-zinc-50 text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:border-white/10 dark:bg-[#0a0a0a] dark:text-zinc-400 dark:hover:bg-[#121214] dark:hover:text-zinc-100"
-            >
-              <ExternalLink className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href={resumePath}
-              download="Ashutosh-Singh-Resume.pdf"
-              aria-label="Download resume"
-              title="Download resume"
-            >
-              <SoftPillButton
-                as="span"
-                variant="primary"
-                className="px-3 py-1.5 !text-[12px]"
+          {hasResume && (
+            <div className="flex items-center gap-2">
+              <a
+                href={siteConfig.resume.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open resume in a new tab"
+                title="Open in new tab"
+                className="flex h-8 w-8 items-center justify-center rounded-[6px] border border-black/10 bg-zinc-50 text-zinc-500 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:border-white/10 dark:bg-[#0a0a0a] dark:text-zinc-400 dark:hover:bg-[#121214] dark:hover:text-zinc-100"
               >
-                <span className="flex items-center gap-1.5">
-                  <Download className="h-3.5 w-3.5" />
-                  Download
-                </span>
-              </SoftPillButton>
-            </a>
-          </div>
+                <ExternalLink className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href={siteConfig.resume.pdf}
+                download
+                aria-label="Download resume"
+                title="Download resume"
+              >
+                <SoftPillButton
+                  as="span"
+                  variant="primary"
+                  className="px-3 py-1.5 !text-[12px]"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Download className="h-3.5 w-3.5" />
+                    Download
+                  </span>
+                </SoftPillButton>
+              </a>
+            </div>
+          )}
         </div>
 
-        <div className="relative aspect-[8.5/11] w-full overflow-hidden rounded-[6px] border border-black/10 bg-white shadow-sm dark:border-white/10">
-          <Image
-            src="/Ashutosh-Singh-Resume.png"
-            alt="Ashutosh Singh resume"
-            fill
-            preload
-            sizes="(min-width: 768px) 40vw, 100vw"
-            quality={75}
-            className="object-contain"
-          />
+        <div className="relative aspect-[8.5/11] w-full overflow-hidden rounded-[6px] border border-black/10 bg-white shadow-sm dark:border-white/10 dark:bg-[#0a0a0a]">
+          {siteConfig.resume.image ? (
+            <Image
+              src={siteConfig.resume.image}
+              alt={`${siteConfig.name} resume`}
+              fill
+              preload
+              sizes="(min-width: 768px) 40vw, 100vw"
+              quality={75}
+              className="object-contain"
+            />
+          ) : (
+            <div className="flex h-full w-full flex-col items-center justify-center gap-2 text-zinc-400 dark:text-zinc-600">
+              <FileText className="h-6 w-6" />
+              <p className="text-[12px]">Resume coming soon</p>
+            </div>
+          )}
         </div>
 
         <div className="relative mt-8">

@@ -4,60 +4,120 @@ import { CurrentTime } from "@/components/CurrentTime";
 import { ProjectsGrid } from "@/components/ProjectsGrid";
 import { ExperienceList } from "@/components/ExperienceList";
 import { OpenSourceContributions } from "@/components/OpenSourceContributions";
-import { BlogList } from "@/components/BlogList";
-import { Highlights } from "@/components/Highlights";
 import { FooterBackground } from "@/components/FooterBackground";
 import { RightNavbar } from "@/components/RightNavbar";
 import { CommandMenu } from "@/components/command-menu";
 import Link from "next/link";
 import SoftPillButton from "@/components/pixel-perfect/soft-pill-button";
-import { FlipCoverButton } from "@/components/pixel-perfect/flip-cover-button";
 import SocialHoverCard from "@/components/pixel-perfect/social-hover-card";
 import { BannerParticles } from "@/components/BannerParticles";
+import { GithubStats } from "@/components/GithubStats";
+import { Highlights } from "@/components/Highlights";
+import { Terminal } from "@/components/Terminal";
+import { GlitchText } from "@/components/GlitchText";
+import { ClickRipple } from "@/components/ClickRipple";
+import { TypingText } from "@/components/TypingText";
+import { ParallaxLayer } from "@/components/ParallaxLayer";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { ScrambleText } from "@/components/ScrambleText";
+import {
+  siCncf,
+  siDart,
+  siFigma,
+  siFlutter,
+  siGit,
+  siGithub,
+  siGo,
+  siGsap,
+  siJavascript,
+  siKotlin,
+  siKubernetes,
+  siLinux,
+  siNextdotjs,
+  siOpenapiinitiative,
+  siPostgresql,
+  siPython,
+  siReact,
+  siThreedotjs,
+  siTypescript,
+} from "simple-icons";
+import { FlipCoverButton } from "@/components/pixel-perfect/flip-cover-button";
 import { FileText } from "lucide-react";
 import Image from "next/image";
+import { hasResume, siteConfig } from "@/data/siteConfig";
 
+// Icon paths are inlined from the simple-icons package rather than fetched from
+// cdn.simpleicons.org — the CDN request can hang or fail, and a broken <img>
+// paints its alt text over the label. Inlining also renders them server-side.
 const skills = [
-  { name: "React", icon: "react" },
-  { name: "Next", icon: "nextdotjs" },
-  { name: "Expo", icon: "expo" },
-  { name: "Django", icon: "django" },
-  { name: "Express", icon: "express" },
-  { name: "Node", icon: "nodedotjs" },
-  { name: "Bun", icon: "bun" },
-  { name: "PostgreSQL", icon: "postgresql" },
-  { name: "MongoDB", icon: "mongodb" },
-  { name: "Redis", icon: "redis" },
-  { name: "Prisma", icon: "prisma" },
-  { name: "Zustand", icon: "https://raw.githubusercontent.com/pmndrs/zustand/main/docs/favicon.ico" },
-  { name: "Tanstack Query", icon: "reactquery" },
-  { name: "Postman", icon: "postman" },
-  { name: "Tailwind", icon: "tailwindcss" },
-  { name: "shadcn", icon: "shadcnui" },
-  { name: "Motion", icon: "framer" },
-  { name: "GSAP", icon: "greensock" },
-  { name: "JavaScript", icon: "javascript" },
-  { name: "TypeScript", icon: "typescript" },
-  { name: "Python", icon: "python" },
-  { name: "C/C++", icon: "cplusplus" },
-  { name: "SQL", icon: "databricks" },
-  { name: "Git", icon: "git" },
-  { name: "Github", icon: "github" },
-  { name: "Figma", icon: "figma" },
-  { name: "Docker", icon: "docker" },
-  { name: "Linux", icon: "linux" },
+  { name: "Go", icon: siGo },
+  { name: "Python", icon: siPython },
+  { name: "JavaScript", icon: siJavascript },
+  { name: "TypeScript", icon: siTypescript },
+  { name: "Dart", icon: siDart },
+  { name: "Kotlin", icon: siKotlin },
+  { name: "Flutter", icon: siFlutter },
+  { name: "React", icon: siReact },
+  { name: "Three.js", icon: siThreedotjs },
+  { name: "GSAP", icon: siGsap },
+  { name: "Next", icon: siNextdotjs },
+  { name: "PostgreSQL", icon: siPostgresql },
+  { name: "Kubernetes", icon: siKubernetes },
+  { name: "REST APIs", icon: siOpenapiinitiative },
+  { name: "Git", icon: siGit },
+  { name: "Github", icon: siGithub },
+  { name: "Figma", icon: siFigma },
+  { name: "Linux", icon: siLinux },
+];
+
+// Organisations carrying merged code, shown directly under the intro. Every
+// entry links to the GitHub search that returns the actual pull requests — the
+// claim and its evidence are the same click. Anything that can't be linked to a
+// public result set doesn't belong in this strip.
+const provenance = [
+  {
+    org: "Kyverno",
+    note: "CNCF",
+    icon: siCncf,
+    href: "https://github.com/search?q=is%3Apr+author%3A7se7en72025+is%3Amerged+org%3Akyverno&type=pullrequests",
+  },
+  {
+    org: "Litmus",
+    note: "CNCF",
+    icon: siCncf,
+    href: "https://github.com/search?q=is%3Apr+author%3A7se7en72025+is%3Amerged+org%3Alitmuschaos&type=pullrequests",
+  },
+  {
+    // Sugar Labs is not a CNCF project — it gets the neutral mark, not the badge.
+    org: "Sugar Labs",
+    note: "31 merged",
+    icon: siGithub,
+    href: "https://github.com/search?q=is%3Apr+author%3A7se7en72025+is%3Amerged+org%3Asugarlabs&type=pullrequests",
+  },
 ];
 
 export default function Home() {
   return (
+    <ClickRipple>
     <div className="min-h-screen w-full bg-white dark:bg-black relative overflow-x-hidden transition-colors duration-300">
+
+      {/* Ambient gradient glow orbs */}
+      <ParallaxLayer speed={0.1}>
+        <div className="pointer-events-none absolute left-1/2 top-[10vh] -z-10 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-cyan-400/10 blur-[120px] dark:bg-cyan-500/[0.12]" />
+      </ParallaxLayer>
+      <ParallaxLayer speed={0.15}>
+        <div className="pointer-events-none absolute left-[15%] top-[55vh] -z-10 h-[380px] w-[380px] rounded-full bg-indigo-400/10 blur-[120px] dark:bg-indigo-500/[0.10]" />
+      </ParallaxLayer>
+      <ParallaxLayer speed={0.2}>
+        <div className="pointer-events-none absolute right-[12%] top-[105vh] -z-10 h-[400px] w-[400px] rounded-full bg-violet-400/10 blur-[120px] dark:bg-violet-500/[0.10]" />
+      </ParallaxLayer>
 
       {/* Right Side Blueprint Navigation */}
       <RightNavbar />
 
       {/* Vertical Lines - Ultra-fine Micro Dots */}
-      <div className="absolute top-0 bottom-0 left-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-      <div className="absolute top-0 bottom-0 right-[30%] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+      <div className="absolute top-0 bottom-0 left-[var(--frame-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+      <div className="absolute top-0 bottom-0 right-[var(--frame-gutter)] w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
 
       {/* Horizontal Lines - Ultra-fine Micro Dots */}
       <div className="absolute left-0 right-0 top-[22vh] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -65,10 +125,10 @@ export default function Home() {
 
       {/* Ultra-Tiny Solid Nodes */}
       {[
-        { top: '22vh', left: '30%' },
-        { top: '22vh', right: '30%' },
-        { top: 'calc(22vh + 112px)', left: '30%' },
-        { top: 'calc(22vh + 112px)', right: '30%' },
+        { top: '22vh', left: 'var(--frame-gutter)' },
+        { top: '22vh', right: 'var(--frame-gutter)' },
+        { top: 'calc(22vh + 112px)', left: 'var(--frame-gutter)' },
+        { top: 'calc(22vh + 112px)', right: 'var(--frame-gutter)' },
       ].map((pos, i) => (
         <div key={i} className="absolute w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] pointer-events-none z-10 hidden md:block"
           style={{
@@ -80,7 +140,7 @@ export default function Home() {
       ))}
 
       {/* Cell 1: Banner */}
-      <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-black shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
+      <div className="absolute left-0 right-0 md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-black shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
         <Image
           src="/ChatGPT%20Image%20May%2022%2C%202026%2C%2012_40_29%20AM.jpg"
           alt=""
@@ -103,38 +163,51 @@ export default function Home() {
         <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/90 to-transparent dark:from-black/50 dark:to-transparent" />
         <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
         <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-        <div className="absolute bottom-3 right-2 z-10 pointer-events-auto">
-          <CurrentTime />
-        </div>
+      </div>
+
+      {/* Timer - fixed top right */}
+      <div className="fixed top-4 right-4 z-50">
+        <CurrentTime />
       </div>
 
       {/* Cell 2: Profile Section - 112px height to wrap the framed image (13px gap top/bottom) */}
-      <div className="absolute left-0 right-0 md:left-[30%] md:right-[30%] top-[22vh] h-[112px] flex items-center px-4 z-50">
+      <div className="absolute left-0 right-0 md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)] top-[22vh] h-[112px] flex items-center px-4 z-50">
         <div className="flex w-full items-center justify-between">
 
           <div className="flex items-center gap-4 sm:gap-5">
-            <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-black/30 dark:border-white/[0.15] shrink-0">
-              {/* The inner image */}
-              <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
-                <Image
-                  src="/avatar.png"
-                  alt="Profile"
-                  width={240}
-                  height={240}
-                  quality={90}
-                  priority
-                  fetchPriority="high"
-                  sizes="(min-width: 640px) 120px, 96px"
-                  className="h-full w-full origin-center translate-y-1 scale-[1.1] object-cover opacity-90 grayscale contrast-100 mix-blend-multiply dark:mix-blend-normal"
-                />
+            <div className="group relative shrink-0">
+              {/* Animated conic glow ring */}
+              <div className="pointer-events-none absolute -inset-[3px] rounded-[9px] sm:rounded-[11px] opacity-70 blur-[6px] transition-opacity duration-500 group-hover:opacity-100 animate-[spin_6s_linear_infinite] bg-[conic-gradient(from_0deg,#38bdf8,#6366f1,#8b5cf6,#38bdf8)]" />
+              <div className="relative p-[3px] rounded-[6px] sm:rounded-[8px] border-[1.5px] border-black/30 dark:border-white/[0.15] bg-white dark:bg-black">
+                {/* The inner image */}
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[3px] sm:rounded-[5px] overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                  <Image
+                    src="/avatar.jpg"
+                    alt="Profile"
+                    width={375}
+                    height={666}
+                    quality={90}
+                    priority
+                    fetchPriority="high"
+                    sizes="(min-width: 640px) 120px, 96px"
+                    className="h-full w-full origin-center translate-y-1 scale-[1.1] object-cover saturate-[1.15] transition-transform duration-500 group-hover:scale-[1.18]"
+                  />
+                </div>
               </div>
+              {/* Live status dot */}
+              <span className="absolute -bottom-1 -right-1 z-20 flex h-4 w-4 items-center justify-center">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-black" />
+              </span>
             </div>
 
             <div className="flex flex-col justify-center pt-8">
-              <h1 className="text-[20px] sm:text-[24px] font-bold text-zinc-800 dark:text-zinc-100 tracking-tight leading-none mb-0.5 [text-shadow:-1.5px_0_0_rgba(0,200,255,0.3),1.5px_0_0_rgba(255,80,0,0.3)] dark:[text-shadow:-1.5px_0_0_rgba(0,200,255,0.6),1.5px_0_0_rgba(255,80,0,0.6)]">
-                Ashutoshx7
+              <h1 className="text-[20px] sm:text-[24px] xl:text-[30px] 2xl:text-[34px] font-bold tracking-tight leading-none mb-1 text-zinc-900 dark:text-white">
+                <GlitchText>{siteConfig.name}</GlitchText>
               </h1>
-              <p className="text-[13px] sm:text-[14px] text-zinc-500 dark:text-zinc-400">20</p>
+              <div className="flex items-center gap-2">
+                <p className="text-[13px] sm:text-[14px] xl:text-[15px] text-zinc-500 dark:text-zinc-400">BITS Pilani</p>
+              </div>
             </div>
           </div>
 
@@ -147,20 +220,58 @@ export default function Home() {
       </div>
 
       {/* Flowing Content Section */}
-      <div className="ml-0 mr-0 md:ml-[30%] md:mr-[30%] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
+      <div className="ml-0 mr-0 md:ml-[var(--frame-gutter)] md:mr-[var(--frame-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
         <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
-          Engineer / Artist. I love building, breaking, and shipping things.
+          <span className="font-semibold text-zinc-900 dark:text-white">Full-stack Developer / Designer.</span>{" "}
+          <TypingText text="I build for the web and ship to open source." delay={2500} speed={30} />
         </p>
 
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
-          <li className="flex gap-1.5"><span>•</span><span>AI, open source, and developer tools excite me.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>I believe actions speak louder than words, so I put my code where my mouth is.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Currently building <span className="font-semibold text-zinc-900 dark:text-white">Draco</span>, <span className="font-semibold text-zinc-900 dark:text-white">VengeanceUI</span>, and experimental AI tools.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Author and maintainer of <span className="font-semibold text-zinc-900 dark:text-white">NYXA UI</span> — 53 stars, MIT licensed.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Co-founder of <a href={siteConfig.wscUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 underline decoration-black/20 underline-offset-[3px] transition-colors hover:decoration-black/60 dark:text-white dark:decoration-white/25 dark:hover:decoration-white/60">WonStepCareer</a> — skill-based campus placement, live at BITS Pilani.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged upstream into <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span>, <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span>, and <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs</span>.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>AI/ML for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>&apos;s geotechnical survey of 200km of national highway.</span></li>
         </ul>
+
+        {/* Provenance strip — who is running this code, above the fold. */}
+        <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2">
+          <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-zinc-400 dark:text-zinc-600">
+            Merged into
+          </span>
+          {provenance.map((item) => (
+            <a
+              key={item.org}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1.5 rounded-[5px] border border-black/30 px-2 py-1 transition-all duration-300 hover:-translate-y-[1px] hover:border-black/50 hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.15)] dark:border-white/[0.15] dark:hover:border-white/30 dark:hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.12)]"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+                fill="currentColor"
+                className="h-3 w-3 shrink-0 text-zinc-500 opacity-70 transition-opacity duration-300 group-hover:opacity-100 dark:text-zinc-400"
+              >
+                <path d={item.icon.path} />
+              </svg>
+              <span className="text-[12px] font-medium text-zinc-700 transition-colors duration-300 group-hover:text-zinc-900 dark:text-zinc-300 dark:group-hover:text-zinc-100">
+                {item.org}
+              </span>
+              <span className="text-[10px] tabular-nums text-zinc-400 dark:text-zinc-600">
+                {item.note}
+              </span>
+            </a>
+          ))}
+        </div>
+
+        <GithubStats />
 
         {/* Buttons */}
         <div className="flex flex-wrap items-center gap-2 mt-4">
-          <FlipCoverButton href="https://cal.com/ashutosh-singh-1fqn5v/30min" label="Book an intro call" />
+          {/* Only rendered once a booking link exists — a dead CTA is worse than none. */}
+          {siteConfig.calBookingUrl && (
+            <FlipCoverButton href={siteConfig.calBookingUrl} label="Book an intro call" />
+          )}
           <Link href="/contact">
             <SoftPillButton
               as="span"
@@ -183,11 +294,11 @@ export default function Home() {
           <h2 className="text-[14px] text-zinc-500 mb-2">Here are my <span className="font-medium text-zinc-800 dark:text-zinc-200">socials</span></h2>
           <div className="flex flex-wrap gap-1.5">
             {[
-              { name: 'GitHub', href: 'https://github.com/Ashutoshx7?tab=overview&from=2026-05-01&to=2026-05-15', icon: <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" strokeWidth="2" fill="none"></path> },
-              { name: 'Twitter', href: 'https://x.com/Ashutosh_7x7', icon: <path d="M4 4l11.733 16h4.267l-11.733 -16zM4 20l6.768 -6.768M20 4l-6.768 6.768" stroke="currentColor" strokeWidth="2" fill="none" /> },
-              { name: 'LinkedIn', href: 'https://www.linkedin.com/in/ashutosh-singh-855177329/', icon: <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="2" fill="none"></path> },
-              { name: 'Discord', href: '#', icon: <path d="M18 5c-1.5-.7-3.2-1-5-1s-3.5.3-5 1c-1.5 3.5-2.5 8-2.5 8 1.5 2 4.5 3 7.5 3s6-1 7.5-3c0 0-1-4.5-2.5-8zM9 13c-.8 0-1.5-.7-1.5-1.5S8.2 10 9 10s1.5.7 1.5 1.5S9.8 13 9 13zm6 0c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5z" fill="currentColor"></path> },
-            ].map((social, i) => (
+              { name: 'GitHub', href: siteConfig.socials.github, icon: <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" strokeWidth="2" fill="none"></path> },
+              { name: 'WhatsApp', href: siteConfig.socials.whatsapp, icon: <path d="M20.52 3.449A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.423-8.452M12.05 21.785h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.002-5.45 4.437-9.884 9.888-9.884a9.825 9.825 0 0 1 9.881 9.892c-.003 5.45-4.437 9.884-9.885 9.884m5.421-7.403c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="currentColor"></path> },
+              { name: 'Twitter', href: siteConfig.socials.twitter, icon: <path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M20 4l-6.768 6.768" stroke="currentColor" strokeWidth="2" fill="none"></path> },
+              { name: 'LinkedIn', href: siteConfig.socials.linkedin, icon: <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 2a2 2 0 1 1-2 2 2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="2" fill="none"></path> },
+            ].filter((social) => social.href).map((social, i) => (
               <SocialHoverCard key={i} socialName={social.name}>
                 <SoftPillButton
                   as="a"
@@ -206,22 +317,69 @@ export default function Home() {
                 </SoftPillButton>
               </SocialHoverCard>
             ))}
-            <Link href="/resume">
-              <SoftPillButton
-                as="span"
-                variant="secondary"
-                className="px-3 py-1.5 !text-[12px]"
-              >
-                <span className="flex items-center gap-1.5 opacity-70 transition-opacity duration-300 group-hover:opacity-100">
-                  <FileText className="h-3.5 w-3.5" />
-                  Resume
-                </span>
-              </SoftPillButton>
-            </Link>
+            {hasResume && (
+              <Link href="/resume">
+                <SoftPillButton
+                  as="span"
+                  variant="secondary"
+                  className="px-3 py-1.5 !text-[12px]"
+                >
+                  <span className="flex items-center gap-1.5 opacity-70 transition-opacity duration-300 group-hover:opacity-100">
+                    <FileText className="h-3.5 w-3.5" />
+                    Resume
+                  </span>
+                </SoftPillButton>
+              </Link>
+            )}
           </div>
         </div>
 
+        {/* Projects */}
+        <ScrollReveal delay={100}>
+        <div id="projects" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
+          <div className="py-2 relative mt-1">
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-sky-400 to-indigo-500" />Projects</h2>
+
+            {/* Horizontal line below Projects heading */}
+            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+            {/* Intersections */}
+            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+            <div className="absolute bottom-0 left-1/2 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+          </div>
+
+          {/* Grid Container */}
+          <div className="relative pt-6 pb-12 px-4">
+            {/* Center Vertical Line */}
+            <div className="absolute top-0 bottom-6 left-1/2 w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none -translate-x-1/2 hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+
+            <ProjectsGrid />
+
+            {/* Bottom Horizontal Line */}
+            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
+            {/* Intersections */}
+            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
+          </div>
+
+          {/* View All Button */}
+          <div className="flex justify-center -mt-[19px] pb-0 relative z-20">
+            <Link href="/projects" className="relative group block">
+              <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
+              <div className="relative flex items-center gap-1.5 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#09090b] dark:hover:bg-[#121214] text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
+                View All
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </div>
+            </Link>
+          </div>
+        </div>
+        </ScrollReveal>
+
         {/* Experiences */}
+        <ScrollReveal delay={0}>
         <div id="experience" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
           {/* Top full-width line */}
           <div
@@ -236,7 +394,7 @@ export default function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Experiences</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-cyan-400 to-blue-500" />Experiences</h2>
             {/* Bottom full-width line */}
             <div
               className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none"
@@ -272,54 +430,35 @@ export default function Home() {
             </div>
           </div>
         </div>
+        </ScrollReveal>
 
-        {/* Projects */}
-        <div id="projects" className="mt-0 flex flex-col relative z-10 scroll-mt-24">
+        {/* Highlights */}
+        <div id="highlights" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
+          {/* Top full-width line */}
+          <div
+            className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none"
+            style={{
+              maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)',
+              WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)'
+            }}
+          />
+          <div className="absolute top-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
+          <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
+
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Projects</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-emerald-400 to-teal-500" />Highlights</h2>
 
-            {/* Horizontal line below Projects heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-            {/* Intersections */}
             <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
             <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            <div className="absolute bottom-0 left-1/2 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
           </div>
 
-          {/* Grid Container */}
-          <div className="relative pt-6 pb-12 px-4">
-            {/* Center Vertical Line */}
-            <div className="absolute top-0 bottom-6 left-1/2 w-0 border-r border-black/30 dark:border-white/[0.15] pointer-events-none -translate-x-1/2 hidden md:block" style={{ maskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to bottom, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-
-            <ProjectsGrid />
-
-            {/* Bottom Horizontal Line */}
-            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-            {/* Intersections */}
-            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            {/* Center dot removed to prevent crossing the outline gap of the View All button */}
-          </div>
-
-          {/* View All Button */}
-          <div className="flex justify-center -mt-[19px] pb-0 relative z-20">
-            <Link href="/projects" className="relative group block">
-              <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
-              <div className="relative flex items-center gap-1.5 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#09090b] dark:hover:bg-[#121214] text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
-                View All
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
-              </div>
-            </Link>
-          </div>
+          <Highlights />
         </div>
 
-        {/* Github Graph */}
+        {/* Open Source */}
         <GithubGraph />
 
-        {/* Open Source Contributions */}
         <div id="opensource" className="scroll-mt-24">
           <OpenSourceContributions />
         </div>
@@ -339,7 +478,7 @@ export default function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Skills & Technologies</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-indigo-400 to-violet-500" />Skills & Technologies</h2>
 
             {/* Horizontal line below Skills heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -351,113 +490,38 @@ export default function Home() {
           <div className="relative pt-6 pb-2">
             <div className="flex flex-wrap gap-2 w-full">
               {skills.map((skill, index) => (
-                <div key={index} className="grow flex items-center justify-center gap-2 px-3 py-1.5 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#0a0a0a] dark:hover:bg-[#121214] border border-black/30 dark:border-white/[0.15] rounded-[6px] transition-colors duration-200 cursor-default">
-                  <img
-                    src={skill.icon.startsWith('http') ? skill.icon : `https://cdn.simpleicons.org/${skill.icon}/71717a`}
-                    alt={skill.name}
-                    width={14}
-                    height={14}
-                    loading="lazy"
-                    decoding="async"
-                    className={`h-3.5 w-3.5 opacity-80 ${skill.icon.startsWith('http') ? 'rounded-sm grayscale' : ''}`}
-                  />
-                  <span className="text-[13px] font-medium text-zinc-600 dark:text-zinc-400">{skill.name}</span>
+                <div key={index} className="group grow flex items-center justify-center gap-2 px-3 py-1.5 bg-zinc-50 hover:bg-white dark:bg-[#0a0a0a] dark:hover:bg-[#141418] border border-black/30 dark:border-white/[0.15] rounded-[6px] transition-all duration-300 cursor-default hover:-translate-y-[2px] hover:border-black/50 dark:hover:border-white/30 hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_4px_20px_-4px_rgba(255,255,255,0.12)]">
+                  <svg
+                    viewBox="0 0 24 24"
+                    role="img"
+                    aria-hidden="true"
+                    fill="currentColor"
+                    className="h-3.5 w-3.5 shrink-0 text-zinc-500 opacity-70 transition-all duration-300 group-hover:scale-110 group-hover:opacity-100 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-zinc-100"
+                  >
+                    <path d={skill.icon.path} />
+                  </svg>
+                  <span className="whitespace-nowrap text-[13px] font-medium text-zinc-600 dark:text-zinc-400 transition-colors duration-300 group-hover:text-zinc-900 dark:group-hover:text-zinc-100">{skill.name}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Blogs */}
-        <div id="blogs" className="mt-6 flex flex-col relative scroll-mt-24">
-          {/* Top full-width line */}
-          <div
-            className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none"
-            style={{
-              maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)',
-              WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)'
-            }}
-          />
-          {/* Top Line Intersections */}
-          <div className="absolute top-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
-          <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
-
-          <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Blogs</h2>
-
-            {/* Horizontal line below Blogs heading */}
-            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-            {/* Intersections */}
-            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-          </div>
-
-          <BlogList />
-
-          {/* View All Button */}
-          <div className="py-4 px-4 -mx-4 flex justify-center relative hover:bg-zinc-50 dark:hover:bg-zinc-900/20 transition-colors cursor-pointer rounded-b-lg mt-0">
-            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-            {/* Bottom Line Intersections */}
-            <div className="absolute bottom-0 left-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            <div className="absolute bottom-0 right-0 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-
-            <Link href="https://medium.com/@ashutoshx7" target="_blank" rel="noopener noreferrer" className="relative group block mt-0">
-              <div className="absolute -inset-[5px] border border-black/5 dark:border-white/5 rounded-[11px] pointer-events-none transition-colors duration-300 group-hover:border-black/10 dark:group-hover:border-white/10" />
-              <div className="relative flex items-center gap-1.5 px-4 py-2 bg-zinc-50 hover:bg-zinc-100 dark:bg-[#09090b] dark:hover:bg-[#121214] text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-[6px] text-[13px] font-medium transition-all duration-300 border border-black/5 dark:border-white/5 shadow-sm shadow-black/20 dark:shadow-lg dark:shadow-black/80">
-                View All
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-zinc-300 transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
-              </div>
-            </Link>
-          </div>
-        </div>
-
-        {/* Highlights */}
-        <div id="highlights" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
-          {/* Top full-width line */}
-          <div
-            className="absolute top-0 left-[-100vw] right-[-100vw] h-0 border-t border-black/30 dark:border-white/[0.15] pointer-events-none"
-            style={{
-              maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)',
-              WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)'
-            }}
-          />
-          {/* Top Line Intersections */}
-          <div className="absolute top-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
-          <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
-
-          <div className="py-2 relative mt-1">
-            <h2 className="text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">Highlights</h2>
-
-            {/* Horizontal line below heading */}
-            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-            {/* Intersections */}
-            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-          </div>
-
-          <Highlights />
-
-          {/* Bottom line */}
-          <div className="relative mt-4 pb-4">
-            <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
-            <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-            <div className="absolute bottom-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
-          </div>
+        {/* Terminal */}
+        <div className="mt-6">
+          <Terminal />
         </div>
 
         {/* Minimal Quote Section */}
         <div className="mt-12 flex flex-col items-center justify-center relative py-12">
           <div className="max-w-[480px] w-full flex flex-col items-center">
             <h3 className="text-[16px] font-medium text-center leading-relaxed text-zinc-500 dark:text-zinc-400 mb-6 italic">
-              &quot;Do so much work that it would be unreasonable<br className="hidden md:block" /> for you to not be successful.&quot;
+              &quot;I sketch things before I build them,<br className="hidden md:block" /> and I build things before I trust them.&quot;
             </h3>
 
             <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] text-zinc-400 dark:text-zinc-600 uppercase">
               <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
-              ALEX HORMOZI
+              {siteConfig.name}
               <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
             </div>
           </div>
@@ -483,5 +547,6 @@ export default function Home() {
       </div>
 
     </div>
+    </ClickRipple>
   );
 }

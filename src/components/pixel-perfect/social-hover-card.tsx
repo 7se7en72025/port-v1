@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-const darkBannerImage = "/ChatGPT%20Image%20May%2022%2C%202026%2C%2012_49_39%20AM.jpg";
 
 interface SocialProfile {
   name: string;
@@ -23,57 +22,15 @@ interface SocialProfile {
 
 const socialProfiles: Record<string, SocialProfile> = {
   GitHub: {
-    name: "Ashutosh Singh",
-    handle: "Ashutoshx7",
-    avatar: "https://github.com/ashutoshx7.png",
-    bio: "20 • Artist / Engineer",
-    location: "Delhi, India (UTC +05:30)",
+    name: "NSA RAIYYAN",
+    handle: "7se7en72025",
+    avatar: "/avatar.jpg",
+    bio: "BITS Pilani • Developer / Designer",
+    location: "India (UTC +05:30)",
     stats: [
-      { value: "138", label: "Repositories" },
-      { value: "236", label: "Followers" },
+      { value: "23", label: "Repositories" },
+      { value: "8", label: "Followers" },
     ],
-  },
-  Twitter: {
-    name: "Ashutoshx7",
-    handle: "@Ashutosh_7x7",
-    avatar: "https://unavatar.io/twitter/Ashutosh_7x7",
-    banner: darkBannerImage,
-    bio: "Artist / Engineer 20 • Backed by Vercel • Building Draco",
-    location: "Delhi, India (UTC +05:30)",
-    stats: [
-      { value: "395", label: "Following" },
-      { value: "2,312", label: "Followers" },
-    ],
-  },
-  LinkedIn: {
-    name: "Ashutosh Singh",
-    handle: "in/ashutosh-singh-855177329",
-    avatar: "https://github.com/ashutoshx7.png",
-    banner: darkBannerImage,
-    bio: "20 • Artist / Engineer ||",
-    location: "Lucknow, Uttar Pradesh, India",
-    stats: [
-      { value: "195", label: "Connections" },
-    ],
-  },
-  Medium: {
-    name: "Ashutosh Singh",
-    handle: "@ashutoshx7",
-    avatar: "https://github.com/ashutoshx7.png",
-    bio: "Writing about modern web engineering, pixel-perfect design systems, and frontend optimizations.",
-    location: "Delhi, India (UTC +05:30)",
-    stats: [
-      { value: "12", label: "Stories" },
-      { value: "85", label: "Followers" },
-    ],
-  },
-  Discord: {
-    name: "Ashutoshx7",
-    handle: "ashutoshsingh71",
-    avatar: "/discord-avatar.png",
-    bio: "Even if it's dark, keep moving forward.",
-    location: "",
-    stats: [],
   },
 };
 
@@ -140,7 +97,7 @@ export default function SocialHoverCard({ socialName, children }: SocialHoverCar
                             decoding="async"
                             quality={75}
                             sizes="48px"
-                            className="w-full h-full object-cover grayscale opacity-90 contrast-100 mix-blend-multiply dark:mix-blend-normal"
+                            className="w-full h-full object-cover saturate-[1.15]"
                           />
                         </div>
                         {/* Discord active green dot indicator */}

@@ -70,7 +70,7 @@ export function GithubGraph() {
 
       const query = `
         query {
-          user(login: "Ashutoshx7") {
+          user(login: "7se7en72025") {
             contributionsCollection {
               contributionCalendar {
                 totalContributions
@@ -222,7 +222,7 @@ export function GithubGraph() {
       </div>
 
       <p id="github-activity-summary" className="sr-only">
-        Calendar heatmap showing daily GitHub contribution counts for Ashutoshx7 over the last year. Scroll horizontally to inspect all weeks.
+        Calendar heatmap showing daily GitHub contribution counts for 7se7en72025 over the last year. Scroll horizontally to inspect all weeks.
       </p>
 
       {/* Graph content — sits directly on the page background */}

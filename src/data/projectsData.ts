@@ -26,13 +26,19 @@ import {
   SiClaude,
   SiGooglegemini,
   SiMeta,
+  SiJavascript,
+  SiGreensock,
+  SiDrizzle,
+  SiPostgresql,
+  SiGo,
 } from "react-icons/si";
 
 export type TechIcon = ComponentType<{ className?: string }>;
 export type TechKey =
   | "next" | "ts" | "react" | "three" | "prisma" | "cloud" | "langchain" | "langgraph" | "rag"
   | "node" | "motion" | "tailwind" | "bun" | "eslint" | "radixui" | "charts" | "github" | "fastapi"
-  | "redis" | "celery" | "tldraw" | "css3" | "python" | "anthropic" | "claude" | "gemini" | "llama";
+  | "redis" | "celery" | "tldraw" | "css3" | "python" | "anthropic" | "claude" | "gemini" | "llama"
+  | "js" | "gsap" | "drizzle" | "postgres" | "go";
 
 export type TechItem = TechKey | { label: string; tooltip?: string; };
 
@@ -50,6 +56,7 @@ export interface Project {
   starsText?: string;
   backgroundImage?: string;
   hasPin: boolean;
+  status?: "live" | "building" | "not-started";
 }
 
 export const iconMap: Record<TechKey, TechIcon> = {
@@ -58,7 +65,8 @@ export const iconMap: Record<TechKey, TechIcon> = {
   motion: SiFramer, tailwind: SiTailwindcss, bun: SiBun, eslint: SiEslint, radixui: SiRadixui,
   charts: SiChartdotjs, github: SiGithub, fastapi: SiFastapi, redis: SiRedis, celery: SiCelery,
   tldraw: SiTldraw, css3: SiCss, python: SiPython, anthropic: SiAnthropic, claude: SiClaude,
-  gemini: SiGooglegemini, llama: SiMeta,
+  gemini: SiGooglegemini, llama: SiMeta, js: SiJavascript, gsap: SiGreensock, drizzle: SiDrizzle,
+  postgres: SiPostgresql, go: SiGo,
 };
 
 export const techNames: Record<TechKey, string> = {
@@ -67,65 +75,114 @@ export const techNames: Record<TechKey, string> = {
   node: "Node.js", motion: "Framer Motion", tailwind: "Tailwind CSS", bun: "Bun", eslint: "ESLint",
   radixui: "Radix UI", charts: "Charts", github: "GitHub API", fastapi: "FastAPI", redis: "Redis",
   celery: "Celery", tldraw: "tldraw", css3: "CSS3", python: "Python", anthropic: "Anthropic",
-  claude: "Claude", gemini: "Gemini", llama: "LLaMA",
+  claude: "Claude", gemini: "Gemini", llama: "LLaMA", js: "JavaScript", gsap: "GSAP",
+  drizzle: "Drizzle", postgres: "PostgreSQL", go: "Go",
 };
 
 export const projectsData: Project[] = [
   {
-    slug: "vengenceui",
-    title: "VengenceUI",
-    imageTitle: "Landing Page",
-    src: "/project-image/image copy.png",
-    lightModeSrc: "/project-image/image.png",
-    video: "https://www.youtube.com/embed/Z-5Y1JQlrdw?si=hA_aQJ3Syv-_jzo0",
-    description: "VengenceUI helps you to build your landing page by providing you animated beautiful components",
-    tech: ["next", "react", "ts", "tailwind", "motion"],
-    github: "https://github.com/Ashutoshx7/VengeanceUI",
-    live: "https://www.vengenceui.com/",
-    starsText: "500+",
-    backgroundImage: "/image copy 5.png",
-    hasPin: true,
-  },
-  {
-    slug: "scribble3d",
-    title: "Scribble3D",
-    imageTitle: "App Interface",
-    src: "/Screenshot%202026-02-07%20234301.png",
-    lightModeSrc: "/Screenshot%202026-02-07%20234011.png",
-    video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
-    description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
-    tech: ["next", "tldraw", "three", "ts", "fastapi", "gemini"],
-    github: "https://github.com/Ashutoshx7/Scribble3D-Sketch-to-3rd-",
-    live: "",
-    backgroundImage: "/image copy.png",
-    hasPin: false,
-  },
-  {
-    slug: "blueprint",
-    title: "Blueprint",
-    imageTitle: "Canvas Interface",
-    src: "/Screenshot%202026-02-07%20233440.png",
-    lightModeSrc: "/Screenshot%202026-02-07%20233831.png",
+    slug: "oasis-app",
+    title: "Oasis App",
+    imageTitle: "Festival App",
+    src: "/project-image/oasis-2025.png",
+    backgroundImage: "/project-image/oasis-2025.png",
     video: "",
-    description: "Blueprint is an AI UI builder that turns prompts into structured, production-ready interfaces.",
-    tech: ["next", "ts", "tailwind", "prisma", "bun", "node", "langchain", "rag"],
-    github: "https://github.com/Ashutoshx7/Blueprint",
-    live: "",
-    backgroundImage: "/image copy 3.png",
-    hasPin: false,
+    description: "The official Oasis 2025 festival app built for 6,000+ attendees. Real-time event schedules, interactive maps, push notifications, and live crowd density tracking across BITS Pilani campus.",
+    tech: ["next", "ts", "react", "tailwind"],
+    github: "",
+    live: "https://play.google.com/store/apps/details?id=com.dvm.oasis2025rn&hl=en_IN",
+    hasPin: true,
+    status: "live",
   },
   {
-    slug: "inquiro",
-    title: "Inquiro",
-    imageTitle: "Search UI",
-    src: "/Screenshot 2026-02-07 011550.png",
-    lightModeSrc: "/Screenshot 2026-02-07 012511.png",
-    video: "/inquiro.mp4",
-    description: "Inquiro is an AI-powered search engine that helps you find information on the internet",
-    tech: ["next", "ts", "radixui", "node", "gemini", "langchain", "langgraph"],
-    github: "https://github.com/Ashutoshx7/Inquiro-",
+    slug: "apogee-app",
+    title: "Apogee App",
+    imageTitle: "Festival App",
+    src: "/project-image/apogee-2026.png",
+    backgroundImage: "/project-image/apogee-2026.png",
+    video: "",
+    description: "The official Apogee 2026 tech festival app. Handles event registration, competition tracking, speaker sessions, and real-time updates for thousands of attendees across a multi-day national-level technical symposium.",
+    tech: ["next", "ts", "react", "tailwind"],
+    github: "",
+    live: "https://play.google.com/store/apps/details?id=org.bitsdvm.apogee2026&hl=en_IN",
+    hasPin: true,
+    status: "live",
+  },
+  {
+    slug: "nyxa-ui",
+    title: "NYXA UI",
+    imageTitle: "Landing Page",
+    src: "/project-image/nyxa-ui.png",
+    backgroundImage: "/project-image/nyxa-ui.png",
+    video: "",
+    description:
+      "A space-themed UI component library with a 3D interactive landing page, built for the future of component development.",
+    tech: ["react", "three", "js", "gsap"],
+    github: "https://github.com/7se7en72025/NYXA-UI",
+    live: "https://kata-ui-rho.vercel.app",
+    starsText: "53",
+    hasPin: true,
+    status: "live",
+  },
+  {
+    slug: "speak-ai",
+    title: "Speak-AI",
+    imageTitle: "Voice Engine",
+    src: "/project-image/speak-ai.png",
+    backgroundImage: "/project-image/speak-ai.png",
+    video: "",
+    description:
+      "Sugar Labs' Speak activity rebuilt as an AI-native tool — pairs a small language model with an LLM for fast responses, and adds richer voices via Kokoro synthesis.",
+    tech: ["python", "llama", { label: "Kokoro", tooltip: "Kokoro TTS" }],
+    github: "https://github.com/7se7en72025/speak-ai",
     live: "",
-    backgroundImage: "/image copy 4.png",
+    starsText: "1",
     hasPin: false,
+    status: "building",
+  },
+  {
+    slug: "logdy",
+    title: "Logdy",
+    imageTitle: "Dashboard",
+    src: "/project-image/logdy.png",
+    backgroundImage: "/project-image/logdy.png",
+    video: "",
+    description:
+      "A lightweight observability demo built with Next.js, Drizzle, Postgres, and a realtime SSE stream, with a logs viewer and AI-assisted query endpoint.",
+    tech: ["next", "ts", "drizzle", "postgres"],
+    github: "https://github.com/7se7en72025/Logdy",
+    live: "https://logdy.vercel.app",
+    hasPin: false,
+    status: "live",
+  },
+  {
+    slug: "opendiff",
+    title: "OpenDiff",
+    imageTitle: "Review UI",
+    src: "/project-image/opendiff.png",
+    backgroundImage: "/project-image/opendiff.png",
+    video: "",
+    description:
+      "Browse, diff, and review GitHub pull requests from one place — an Actix-web backend in Rust with MongoDB persistence, live updates over WebSockets, and aggressive client-side caching to stay off the API rate limit.",
+    tech: [{ label: "Rust" }, { label: "Actix", tooltip: "Actix-web" }, { label: "MongoDB" }, "github"],
+    github: "https://github.com/7se7en72025/OpenDiff",
+    live: "",
+    hasPin: false,
+    status: "building",
+  },
+  {
+    slug: "pikapika",
+    title: "pikapika",
+    imageTitle: "Language",
+    src: "/project-image/pikapika.png",
+    backgroundImage: "/project-image/pikapika.png",
+    video: "",
+    description: "A stack-based concatenative language written in Go — hand-rolled lexer, recursive-descent parser, and a typed AST. Pika pika!",
+    tech: ["go"],
+    github: "https://github.com/7se7en72025/pikapika",
+    live: "",
+    starsText: "1",
+    hasPin: false,
+    status: "building",
   },
 ];

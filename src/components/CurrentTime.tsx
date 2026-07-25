@@ -2,15 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-function TwoDots() {
-  return (
-    <div className="mx-0.5 sm:mx-1 flex flex-col gap-2 -translate-x-[2px] sm:-translate-x-[3px]">
-      <div className="w-[2px] h-[2px] bg-zinc-400 dark:bg-zinc-500"></div>
-      <div className="w-[2px] h-[2px] bg-zinc-400 dark:bg-zinc-500"></div>
-    </div>
-  );
-}
-
 export function CurrentTime() {
   const [time, setTime] = useState<Date | null>(null);
 
@@ -27,10 +18,10 @@ export function CurrentTime() {
     return (
       <div className="flex items-center opacity-0">
         <div 
-          className="text-[20px] sm:text-[24px] tracking-[0.15em] text-zinc-400 dark:text-zinc-500" 
+          className="text-[20px] sm:text-[24px] tracking-[0.2em] text-zinc-400 dark:text-zinc-500" 
           style={{ fontFamily: '"Doto", monospace', fontWeight: 700 }}
         >
-          00.00.00
+          00:00:00
         </div>
       </div>
     );
@@ -43,13 +34,13 @@ export function CurrentTime() {
   return (
     <div className="flex items-center h-[24px]">
       <div 
-        className="text-[20px] sm:text-[24px] tracking-[0.15em] flex items-center text-zinc-400 dark:text-zinc-500 h-full" 
+        className="text-[20px] sm:text-[24px] tracking-[0.2em] text-zinc-500 dark:text-zinc-400" 
         style={{ fontFamily: '"Doto", monospace', fontWeight: 700 }}
       >
         <span>{hours}</span>
-        <TwoDots />
+        <span className="animate-pulse">:</span>
         <span>{minutes}</span>
-        <TwoDots />
+        <span className="animate-pulse">:</span>
         <span>{seconds}</span>
       </div>
     </div>

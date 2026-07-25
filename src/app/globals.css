@@ -5,6 +5,28 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Width of the empty gutter either side of the framed content column, used by
+ * every page's guide lines, banner, header and content block so they stay in
+ * alignment. Narrows on wide displays — at a fixed 30% the column occupied only
+ * 40% of a 1920px screen, leaving ~700px of dead space per side.
+ */
+:root {
+  --frame-gutter: 30%;
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --frame-gutter: 24%;
+  }
+}
+
+@media (min-width: 1728px) {
+  :root {
+    --frame-gutter: 20%;
+  }
+}
+
 @theme inline {
   --color-background: #ffffff;
   --color-foreground: #000000;
@@ -191,4 +213,122 @@ body {
     animation-play-state: paused;
   }
 
+  @keyframes glitch {
+    0%, 90%, 100% { transform: translate(0); opacity: 0; }
+    91% { transform: translate(-2px, 1px); opacity: 0.7; }
+    92% { transform: translate(2px, -1px); opacity: 0.7; }
+    93% { transform: translate(-1px, -1px); opacity: 0.7; }
+    94% { transform: translate(1px, 2px); opacity: 0; }
+  }
+
+  @keyframes glitch_reverse {
+    0%, 90%, 100% { transform: translate(0); opacity: 0; }
+    91% { transform: translate(2px, -1px); opacity: 0.7; }
+    92% { transform: translate(-2px, 1px); opacity: 0.7; }
+    93% { transform: translate(1px, 1px); opacity: 0.7; }
+    94% { transform: translate(-1px, -2px); opacity: 0; }
+  }
+
+  @keyframes ripple {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+  }
+
+}
+
+/* Noise texture overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Page transition */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: scale(1);
+  }
+}
+
+.page-transition {
+  animation: page-in 0.5s ease-out;
+}
+
+@keyframes pixel-dissolve {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(0); }
+}
+
+/* Visitors who ask their OS for less motion get a still page: no parallax,
+   no scramble, no drifting gradients. The layout and every hover state still
+   work — only the movement stops. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Type and interaction craft
+   Small stuff, but it's the difference between "made with a component library"
+   and "someone chose this."
+   --------------------------------------------------------------------------- */
+
+html {
+  /* Geist ships thin. Without antialiasing it renders chalky on the dark
+     background this site spends most of its time on. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Large type needs negative tracking to stop looking gappy; small type needs
+   the default. Browsers do not do this for you. */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  letter-spacing: -0.035em;
+}
+
+/* Dates, counters and code line up in columns instead of jittering as digits
+   change width. */
+time, code, kbd, samp {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The default selection blue fights every accent on the page. */
+::selection {
+  background: rgb(16 185 129 / 0.22);
+}
+
+/* Keyboard users get a visible ring; mouse users never see it. Most portfolios
+   delete outlines entirely and quietly break keyboard navigation. */
+:focus-visible {
+  outline: 2px solid rgb(16 185 129 / 0.7);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
 }

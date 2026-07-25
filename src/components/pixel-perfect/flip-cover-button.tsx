@@ -17,10 +17,10 @@ interface FlipCoverButtonProps {
  * 3D Flip Cover Button Component.
  * Styled to 100% exact size, padding, and height match with SoftPillButton ("Send an email").
  * On hover, the white "Book an intro call" lid flips open -120deg on a 3D hinge,
- * revealing the Cal.com themed button inside linking to https://cal.com/ashutosh-singh-1fqn5v/30min!
+ * revealing the Cal.com themed button inside.
  */
 export function FlipCoverButton({
-  href = "https://cal.com/ashutosh-singh-1fqn5v/30min",
+  href = "",
   label = "Book an intro call",
   className = "",
 }: FlipCoverButtonProps) {
@@ -49,12 +49,13 @@ export function FlipCoverButton({
         </div>
       </SoftPillButton>
 
-      {/* Inside: Revealed small cal.com button matching Cal.com theme */}
+      {/* Inside: Revealed small cal.com button matching Cal.com theme.
+          Renders inert until a booking link is supplied, so an empty href
+          can't reload the page. */}
       <div className={styles.button}>
         <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={href || undefined}
+          {...(href ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           className="w-full h-full inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-zinc-900 hover:bg-black dark:bg-white dark:hover:bg-zinc-100 text-white dark:text-zinc-900 rounded-[4px] text-[12px] font-semibold tracking-wide whitespace-nowrap shadow-sm border border-white/10 dark:border-black/10 transition-colors"
         >
           <svg
@@ -69,7 +70,7 @@ export function FlipCoverButton({
             <line x1="8" y1="2" x2="8" y2="6" />
             <line x1="3" y1="10" x2="21" y2="10" />
           </svg>
-          <span>cal.com</span>
+          <span>{href ? "cal.com" : "coming soon"}</span>
         </a>
       </div>
 
@@ -89,7 +90,7 @@ export function FlipCoverButton({
               <line x1="8" y1="2" x2="8" y2="6" />
               <line x1="3" y1="10" x2="21" y2="10" />
             </svg>
-            <span>cal.com</span>
+            <span>{href ? "cal.com" : "coming soon"}</span>
           </div>
         </div>
         <div className={styles.spine} />

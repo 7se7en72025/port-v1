@@ -4,6 +4,13 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { LoadingScreen } from "@/components/LoadingScreen";
+import { EffectsProvider } from "@/components/EffectsProvider";
+import { NoiseOverlay } from "@/components/NoiseOverlay";
+import { ScrollProgress } from "@/components/ScrollProgress";
+import { GradientShift } from "@/components/GradientShift";
+import { PixelDissolve } from "@/components/PixelDissolve";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,7 +23,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ashutoshx7",
+  title: "NSA RAIYYAN",
   description:
     "Full stack developer building clean, modern websites and apps with a focus on design, functionality, and attention to detail.",
   icons: {
@@ -27,7 +34,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-icon.png", type: "image/png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "Ashutoshx7",
+    title: "NSA RAIYYAN",
     description:
       "Full stack developer building clean, modern websites and apps.",
     type: "website",
@@ -46,14 +53,24 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col dark:bg-black dark:text-zinc-50 transition-colors duration-300">
+        <LoadingScreen />
+        <EffectsProvider>
+        <ScrollProgress />
+        <ScrollToTop />
+        <GradientShift />
+        <PixelDissolve />
+        <NoiseOverlay />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <div className="page-transition">
           {children}
+          </div>
         </ThemeProvider>
+        </EffectsProvider>
         <Analytics />
         <SpeedInsights />
       </body>

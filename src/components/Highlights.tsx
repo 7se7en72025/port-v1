@@ -22,13 +22,27 @@ function HighlightCard({ item }: { item: Highlight }) {
               draggable={false}
             />
           ) : (
-            <div
-              className="absolute inset-0 opacity-[0.05] dark:opacity-[0.04]"
-              style={{
-                backgroundImage:
-                  "repeating-linear-gradient(0deg,transparent,transparent 23px,currentColor 23px,currentColor 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,currentColor 23px,currentColor 24px)",
-              }}
-            />
+            <>
+              <div
+                className="absolute inset-0 opacity-[0.05] dark:opacity-[0.04]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(0deg,transparent,transparent 23px,currentColor 23px,currentColor 24px),repeating-linear-gradient(90deg,transparent,transparent 23px,currentColor 23px,currentColor 24px)",
+                }}
+              />
+              {item.metric && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-[40px] font-bold leading-none tabular-nums text-zinc-900 transition-transform duration-500 group-hover:scale-105 dark:text-zinc-100">
+                    {item.metric}
+                  </span>
+                  {item.metricLabel && (
+                    <span className="mt-1.5 text-[10px] font-medium uppercase tracking-wider text-zinc-400 dark:text-zinc-600">
+                      {item.metricLabel}
+                    </span>
+                  )}
+                </div>
+              )}
+            </>
           )}
         </div>
 
