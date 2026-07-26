@@ -92,7 +92,7 @@ export function LoadingScreen() {
           <div className="relative">
             {glitch && (
               <motion.div
-                className="absolute inset-0 text-[60px] sm:text-[80px] font-bold tracking-[0.5em] text-cyan-400"
+                className="absolute inset-0 text-[80px] sm:text-[120px] xl:text-[140px] font-bold tracking-[0.5em] text-cyan-400"
                 style={{ fontFamily: '"Doto", monospace' }}
                 initial={{ opacity: 0, x: 0 }}
                 animate={{
@@ -108,7 +108,7 @@ export function LoadingScreen() {
 
             {glitch && (
               <motion.div
-                className="absolute inset-0 text-[60px] sm:text-[80px] font-bold tracking-[0.5em] text-red-500"
+                className="absolute inset-0 text-[80px] sm:text-[120px] xl:text-[140px] font-bold tracking-[0.5em] text-red-500"
                 style={{ fontFamily: '"Doto", monospace' }}
                 initial={{ opacity: 0, x: 0 }}
                 animate={{
@@ -124,7 +124,7 @@ export function LoadingScreen() {
 
             {/* Main digits */}
             <motion.div
-              className="relative text-[60px] sm:text-[80px] font-bold tracking-[0.5em] text-white"
+              className="relative text-[80px] sm:text-[120px] xl:text-[140px] font-bold tracking-[0.5em] text-white"
               style={{ fontFamily: '"Doto", monospace' }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
