@@ -246,7 +246,7 @@ export default function Home() {
       <div className="ml-0 mr-0 md:ml-[var(--frame-gutter)] md:mr-[var(--frame-gutter)] pt-[calc(22vh+112px)] pb-0 px-4 flex flex-col z-10 relative min-h-screen">
         <p className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4">
           <span className="font-semibold text-zinc-900 dark:text-white">Full-stack Developer / Designer.</span>{" "}
-          <TypingText text="Kubernetes tooling, education software, and a placement platform for my campus." delay={2500} speed={30} />
+          <TypingText text="Kubernetes tooling, education software, and a placement platform that actually works." delay={2500} speed={30} />
         </p>
 
         {/* Currently building */}
@@ -588,29 +588,11 @@ export default function Home() {
         <div className="mt-12 flex flex-col items-center justify-center relative py-12">
           <div className="flex w-full max-w-[560px] flex-col items-center">
             <p className="text-center text-[16px] font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
-              Most of what I have merged upstream is deletions, leak fixes, and
-              bugs that only show up on the third run.
+              I don't ship code to impress hiring managers.
               <br className="hidden md:block" />{" "}
               <span className="text-zinc-700 dark:text-zinc-300">
-                That work does not demo well. I like it anyway.
+                I ship it because the alternative is building someone else's vision.
               </span>
-            </p>
-          </div>
-        </div>
-
-        {/* Testimonial */}
-        <div className="mt-8 max-w-[480px] mx-auto text-center">
-          <div className="relative px-6 py-5 rounded-xl border border-black/5 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-zinc-900/30">
-            <svg className="absolute top-3 left-4 w-6 h-6 text-zinc-200 dark:text-zinc-800" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
-            </svg>
-            <p className="text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed italic pl-4">
-              Raiyyan redesigned our entire fest app in a week. The Play Store
-              rating went from 3.2 to 4.6 after his pass. He doesn't just make
-              things look good — he makes them work.
-            </p>
-            <p className="mt-3 text-[11px] text-zinc-400 dark:text-zinc-500 font-medium">
-              — DVM Core Team, BITS Pilani
             </p>
           </div>
         </div>
