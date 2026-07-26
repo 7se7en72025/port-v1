@@ -86,7 +86,7 @@ export const projectsData: Project[] = [
     imageTitle: "Festival App",
     src: "/project-image/oasis-2025.png",
     backgroundImage: "/project-image/oasis-2025.png",
-    video: "",
+    video: "/demos/oasis-2025.mp4",
     // Design credit, not engineering credit — the tech list names the design
     // tools because listing a build stack would imply he wrote the app. DVM's
     // dev team shipped it in React Native.
@@ -153,7 +153,7 @@ export const projectsData: Project[] = [
     imageTitle: "Festival App",
     src: "/project-image/apogee-2026.png",
     backgroundImage: "/project-image/apogee-2026.png",
-    video: "",
+    video: "/demos/apogee-2026.mp4",
     description: "Designed the official Apogee 2026 app: event registration, competition tracking, and speaker sessions across a multi-day national technical symposium. 1K+ downloads on Google Play.",
     tech: [{ label: "Figma" }, { label: "Design Systems" }, { label: "UI/UX" }],
     github: "",

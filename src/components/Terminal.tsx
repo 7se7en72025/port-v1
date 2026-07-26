@@ -9,29 +9,53 @@ interface TerminalLine {
 }
 
 const HELP_TEXT = `Available commands:
-  help      - Show this message
-  about     - Who is this?
-  skills    - Tech stack
-  socials   - Links
-  clear     - Clear terminal
-  revert    - Kill terminal session
-  sm revert - Disable all effects
-             (glitch, particles, typing,
-              sound, ripple, cursor,
-              parallax, reveal, noise,
-              scramble, gradient, counter,
-              progress, dissolve)`;
+  help          - Show this message
+  about         - Who is this?
+  about --verbose - The real story
+  skills        - Tech stack
+  socials       - Links
+  secret        - ?
+  clear         - Clear terminal
+  revert        - Kill terminal session
+  sm revert     - Disable all effects`;
 
 const ABOUT_TEXT = `NSA Raiyyan. BITS Pilani.
 Full-stack Developer / Designer.
 Kubernetes tooling, education software, and a
 placement platform for my campus.`;
 
+const ABOUT_VERBOSE_TEXT = `I started building things because I was tired of
+watching good ideas die in pitch decks. Every
+project on this page exists because someone
+(including me) needed it to exist.
+
+WonStepCareer exists because I watched capable
+batchmates get filtered out by branch and CGPA
+before a human read their resume.
+
+OpenDiff exists because reviewing PRs across 12
+repos manually was making me lose my mind.
+
+pikapika exists because I wanted to understand
+how languages work from the inside out.
+
+I don't build for the portfolio. I build because
+not building feels like wasting time.
+
+Also, I type at 120 WPM. Not relevant. Just flexing.`;
+
 const SKILLS_TEXT = `Go, Python, TypeScript, React, Next.js,
 Kubernetes, PostgreSQL, Flutter, Figma`;
 
 const SOCIALS_TEXT = `GitHub  : github.com/7se7en72025
 Email   : f20241312a@pilani.bits-pilani.ac.in`;
+
+const SECRET_TEXT = `You found it. Here's a secret:
+I almost didn't put a terminal on this site.
+Glad I did though. You're still here, reading
+this. That means it worked.
+
+Now go touch grass.`;
 
 export function Terminal() {
   const { revertAll } = useEffects();
@@ -58,12 +82,16 @@ export function Terminal() {
 
     if (trimmed === "help") {
       setLines((prev) => [...prev, { type: "output", text: HELP_TEXT }]);
+    } else if (trimmed === "about --verbose" || trimmed === "about -v") {
+      setLines((prev) => [...prev, { type: "output", text: ABOUT_VERBOSE_TEXT }]);
     } else if (trimmed === "about") {
       setLines((prev) => [...prev, { type: "output", text: ABOUT_TEXT }]);
     } else if (trimmed === "skills") {
       setLines((prev) => [...prev, { type: "output", text: SKILLS_TEXT }]);
     } else if (trimmed === "socials") {
       setLines((prev) => [...prev, { type: "output", text: SOCIALS_TEXT }]);
+    } else if (trimmed === "secret") {
+      setLines((prev) => [...prev, { type: "output", text: SECRET_TEXT }]);
     } else if (trimmed === "clear") {
       setLines([]);
     } else if (trimmed === "revert") {

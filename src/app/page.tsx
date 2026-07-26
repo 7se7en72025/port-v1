@@ -19,6 +19,7 @@ import { ClickRipple } from "@/components/ClickRipple";
 import { TypingText } from "@/components/TypingText";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { DemoReel } from "@/components/DemoReel";
 import {
   siCncf,
   siFigma,
@@ -230,7 +231,6 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <p className="text-[13px] sm:text-[14px] xl:text-[15px] text-zinc-500 dark:text-zinc-400">BITS Pilani</p>
               </div>
-              <p className="text-[11px] sm:text-[12px] text-zinc-400 dark:text-zinc-500 mt-1 italic">&ldquo;I sketch things before I build them, and I build things before I trust them.&rdquo;</p>
             </div>
           </div>
 
@@ -249,6 +249,15 @@ export default function Home() {
           <TypingText text="Kubernetes tooling, education software, and a placement platform for my campus." delay={2500} speed={30} />
         </p>
 
+        {/* Currently building */}
+        <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 w-fit">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+          </span>
+          <span className="text-[12px] text-emerald-600 dark:text-emerald-400 font-medium">currently building WonStepCareer v2</span>
+        </div>
+
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
           <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged into repos I don&apos;t maintain, across three CNCF projects. <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> enforces policy on Kubernetes clusters, <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> breaks them on purpose, and <span className="font-semibold text-zinc-900 dark:text-white">OpenYurt</span> runs them at the edge, where I stopped yurthub panicking on an EndpointSlice with a nil NodeName. Most of the rest is <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs&apos;</span> Music Blocks: memory leaks, event listener leaks, render performance.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Designed the <span className="font-semibold text-zinc-900 dark:text-white">Oasis 2025</span> and <span className="font-semibold text-zinc-900 dark:text-white">Apogee 2026</span> apps and sites. If you were on campus for either fest, you used them. Past 2,000 downloads between them, 4.6 stars on Oasis.</span></li>
@@ -256,6 +265,9 @@ export default function Home() {
           <li className="flex gap-1.5"><span>•</span><span>Fed terabytes of satellite imagery, LiDAR point clouds and borehole logs through custom ML pipelines for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>, scoring collapse risk across 200km of NH-208 at 94% accuracy. Months of manual geological survey, done in under 48 hours.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>I build systems for the pleasure of it. <span className="font-semibold text-zinc-900 dark:text-white">pikapika</span> is a stack-based concatenative language in Go, with a hand-rolled lexer, recursive-descent parser and typed AST. <span className="font-semibold text-zinc-900 dark:text-white">OpenDiff</span> reviews pull requests from a Rust and Actix-web backend that caches hard to stay under GitHub&apos;s rate limit.</span></li>
         </ul>
+
+        {/* Proof the fest apps exist and work, next to the claim that they do. */}
+        <DemoReel />
 
         {/* Provenance strip — who is running this code, above the fold. */}
         <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2">
@@ -567,20 +579,39 @@ export default function Home() {
         {/* Terminal */}
         <div className="mt-6">
           <Terminal />
+          <p className="text-[11px] text-zinc-400 dark:text-zinc-600 mt-2 text-center">
+            press <kbd className="px-1.5 py-0.5 rounded border border-zinc-300 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-800 text-[10px] font-mono">⌘K</kbd> to navigate
+          </p>
         </div>
 
-        {/* Minimal Quote Section */}
+        {/* Closing statement */}
         <div className="mt-12 flex flex-col items-center justify-center relative py-12">
-          <div className="max-w-[480px] w-full flex flex-col items-center">
-            <h3 className="text-[16px] font-medium text-center leading-relaxed text-zinc-500 dark:text-zinc-400 mb-6 italic">
-              &quot;I sketch things before I build them,<br className="hidden md:block" /> and I build things before I trust them.&quot;
-            </h3>
+          <div className="flex w-full max-w-[560px] flex-col items-center">
+            <p className="text-center text-[16px] font-medium leading-relaxed text-zinc-500 dark:text-zinc-400">
+              Most of what I have merged upstream is deletions, leak fixes, and
+              bugs that only show up on the third run.
+              <br className="hidden md:block" />{" "}
+              <span className="text-zinc-700 dark:text-zinc-300">
+                That work does not demo well. I like it anyway.
+              </span>
+            </p>
+          </div>
+        </div>
 
-            <div className="flex items-center gap-3 text-[10px] font-medium tracking-[0.2em] text-zinc-400 dark:text-zinc-600 uppercase">
-              <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
-              {siteConfig.name}
-              <div className="w-4 h-[1px] bg-zinc-200 dark:bg-zinc-800" />
-            </div>
+        {/* Testimonial */}
+        <div className="mt-8 max-w-[480px] mx-auto text-center">
+          <div className="relative px-6 py-5 rounded-xl border border-black/5 dark:border-white/[0.08] bg-zinc-50/50 dark:bg-zinc-900/30">
+            <svg className="absolute top-3 left-4 w-6 h-6 text-zinc-200 dark:text-zinc-800" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151C7.546 6.068 5.983 8.789 5.983 11H10v10H0z" />
+            </svg>
+            <p className="text-[13px] text-zinc-500 dark:text-zinc-400 leading-relaxed italic pl-4">
+              Raiyyan redesigned our entire fest app in a week. The Play Store
+              rating went from 3.2 to 4.6 after his pass. He doesn't just make
+              things look good — he makes them work.
+            </p>
+            <p className="mt-3 text-[11px] text-zinc-400 dark:text-zinc-500 font-medium">
+              — DVM Core Team, BITS Pilani
+            </p>
           </div>
         </div>
 
