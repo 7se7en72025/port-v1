@@ -18,6 +18,7 @@ import { GlitchText } from "@/components/GlitchText";
 import { ClickRipple } from "@/components/ClickRipple";
 import { TypingText } from "@/components/TypingText";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
+import { InteractiveBanner } from "@/components/InteractiveBanner";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import {
   siCncf,
@@ -162,30 +163,7 @@ export default function Home() {
       ))}
 
       {/* Cell 1: Banner */}
-      <div className="absolute left-0 right-0 md:left-[var(--frame-gutter)] md:right-[var(--frame-gutter)] top-0 h-[22vh] -z-0 pointer-events-auto overflow-hidden bg-white dark:bg-black shadow-[0_4px_12px_rgba(2,6,23,0.04)] dark:shadow-[0_4px_12px_rgba(2,6,23,0.10)]">
-        <Image
-          src="/ChatGPT%20Image%20May%2022%2C%202026%2C%2012_40_29%20AM.jpg"
-          alt=""
-          fill
-          fetchPriority="high"
-          sizes="(min-width: 768px) 40vw, 100vw"
-          quality={100}
-          className="object-cover object-center dark:hidden"
-        />
-        <Image
-          src="/ChatGPT%20Image%20May%2022%2C%202026%2C%2012_49_39%20AM.jpg"
-          alt=""
-          fill
-          fetchPriority="high"
-          sizes="(min-width: 768px) 40vw, 100vw"
-          quality={100}
-          className="hidden object-cover object-center dark:block"
-        />
-        <BannerParticles />
-        <div className="absolute inset-x-0 bottom-0 h-10 pointer-events-none z-[5] bg-gradient-to-t from-white/90 to-transparent dark:from-black/50 dark:to-transparent" />
-        <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-r from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-        <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none z-20 bg-gradient-to-l from-white/90 to-transparent dark:from-black/40 dark:to-transparent" />
-      </div>
+      <InteractiveBanner />
 
       {/* Timer - fixed top right */}
       <div className="fixed top-4 right-4 z-50">
@@ -403,7 +381,7 @@ export default function Home() {
         <ScrollReveal delay={100}>
         <div id="projects" className="mt-6 flex flex-col relative z-10 scroll-mt-24">
           <div className="py-2 relative mt-1">
-            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-sky-400 to-indigo-500" />Projects</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight relative"><span className="absolute -left-4 top-1/2 -translate-y-1/2 w-[calc(100%+32px)] h-[1px] bg-gradient-to-r from-transparent via-sky-400/20 to-transparent blur-[2px] pointer-events-none" /><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-sky-400 to-indigo-500" />Projects</h2>
 
             {/* Horizontal line below Projects heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -459,7 +437,7 @@ export default function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative">
-            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-cyan-400 to-blue-500" />Experiences</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight relative"><span className="absolute -left-4 top-1/2 -translate-y-1/2 w-[calc(100%+32px)] h-[1px] bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent blur-[2px] pointer-events-none" /><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-cyan-400 to-blue-500" />Experiences</h2>
             {/* Bottom full-width line */}
             <div
               className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none"
@@ -511,7 +489,7 @@ export default function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-emerald-400 to-teal-500" />Highlights</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight relative"><span className="absolute -left-4 top-1/2 -translate-y-1/2 w-[calc(100%+32px)] h-[1px] bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent blur-[2px] pointer-events-none" /><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-emerald-400 to-teal-500" />Highlights</h2>
 
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
             <div className="absolute bottom-0 -left-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] -translate-x-1/2 translate-y-1/2 pointer-events-none z-20" />
@@ -543,7 +521,7 @@ export default function Home() {
           <div className="absolute top-0 -right-4 w-[2px] h-[2px] bg-black/50 dark:bg-white/[0.25] translate-x-1/2 -translate-y-1/2 pointer-events-none z-20" />
 
           <div className="py-2 relative mt-1">
-            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight"><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-indigo-400 to-violet-500" />Skills & Technologies</h2>
+            <h2 className="group flex items-center gap-2.5 text-[18px] font-bold text-zinc-900 dark:text-zinc-100 tracking-tight relative"><span className="absolute -left-4 top-1/2 -translate-y-1/2 w-[calc(100%+32px)] h-[1px] bg-gradient-to-r from-transparent via-violet-400/20 to-transparent blur-[2px] pointer-events-none" /><span className="inline-block h-[14px] w-[3px] rounded-full bg-gradient-to-b from-indigo-400 to-violet-500" />Skills & Technologies</h2>
 
             {/* Horizontal line below Skills heading */}
             <div className="absolute bottom-0 left-[-100vw] right-[-100vw] h-0 border-b border-black/30 dark:border-white/[0.15] pointer-events-none" style={{ maskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)', WebkitMaskImage: 'repeating-linear-gradient(to right, black 0, black 1px, transparent 1px, transparent 6px)' }} />
@@ -596,7 +574,7 @@ export default function Home() {
         {/* Footer */}
         <div className="mt-12 mb-8 text-center">
           <p className="text-[11px] text-zinc-400">
-            <a href="https://github.com/7se7en72025/port-v1" target="_blank" rel="noopener noreferrer" className="hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors underline underline-offset-2 decoration-zinc-300 dark:decoration-zinc-700">built this</a>
+            <a href="https://github.com/7se7en72025/port-v1" target="_blank" rel="noopener noreferrer" className="group inline-block hover:text-cyan-400 dark:hover:text-cyan-300 transition-all duration-300 underline underline-offset-2 decoration-zinc-300 dark:decoration-zinc-700 hover:decoration-cyan-400 dark:hover:decoration-cyan-300 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.35)]">built this</a>
             {' '}· Next.js + Tailwind
           </p>
         </div>
