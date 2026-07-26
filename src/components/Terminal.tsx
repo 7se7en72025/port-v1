@@ -174,7 +174,6 @@ export function Terminal() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             className="flex-1 bg-transparent text-zinc-100 outline-none ml-2 caret-emerald-400"
-            autoFocus
             spellCheck={false}
           />
         </div>

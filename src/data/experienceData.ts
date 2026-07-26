@@ -126,12 +126,15 @@ export const experiences: ExperienceData[] = [
     location: "BITS Pilani",
     src: "",
     description: `
-      Co-designed for Oasis and Apogee, directing the end-to-end product design lifecycle for flagship festival web and mobile platforms supporting a footfall of 6,000+ attendees
-      Architected high-fidelity interfaces, scalable design systems, and cross-platform user journeys
-      Collaborated with developer teams to ensure pixel-perfect delivery for high-traffic digital infrastructure
+      Designed the official Oasis 2025 and Apogee 2026 apps, both shipped to the Play Store and together past 2,000 downloads — Oasis holds 4.6 stars across 18 reviews
+      Owned the screens attendees actually live in during a festival: event schedule, campus map, registration and live crowd density, designed for one-handed use in a crowd on a dying phone battery
+      Built the shared design system both apps are drawn from, so a second festival did not mean a second design language
+      Handed off specs to the developer teams building in React Native and reviewed builds against them
     `,
     tech: ["Figma", "Design Systems", "UI/UX"],
     metrics: [
+      { label: "Downloads", value: "2K+" },
+      { label: "Oasis Rating", value: "4.6★" },
       { label: "Festival Footfall", value: "6,000+" },
     ],
   },

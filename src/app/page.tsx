@@ -224,7 +224,7 @@ export default function Home() {
               <div className="flex items-center gap-2">
                 <p className="text-[13px] sm:text-[14px] xl:text-[15px] text-zinc-500 dark:text-zinc-400">BITS Pilani</p>
               </div>
-              <p className="text-[11px] sm:text-[12px] text-zinc-400 dark:text-zinc-500 mt-1 italic">"I sketch things before I build them, and I build things before I trust them."</p>
+              <p className="text-[11px] sm:text-[12px] text-zinc-400 dark:text-zinc-500 mt-1 italic">&ldquo;I sketch things before I build them, and I build things before I trust them.&rdquo;</p>
             </div>
           </div>
 
@@ -244,10 +244,11 @@ export default function Home() {
         </p>
 
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
-          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged upstream into <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> and <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> — Kubernetes policy enforcement and chaos engineering, both CNCF — plus <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs&apos;</span> Music Blocks.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged into repos I don&apos;t maintain. <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> and <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> are CNCF projects, one enforcing policy on Kubernetes clusters and one breaking them on purpose. <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs&apos;</span> Music Blocks teaches children to program.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Designed the <span className="font-semibold text-zinc-900 dark:text-white">Oasis 2025</span> and <span className="font-semibold text-zinc-900 dark:text-white">Apogee 2026</span> apps and sites. If you were on campus for either fest, you used them. Past 2,000 downloads between them, 4.6 stars on Oasis.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Built <a href={siteConfig.wscUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 underline decoration-black/20 underline-offset-[3px] transition-colors hover:decoration-black/60 dark:text-white dark:decoration-white/25 dark:hover:decoration-white/60">WonStepCareer</a> after watching capable batchmates get filtered out by branch and CGPA before a human read their resume. It matches on verified skills instead. Live at BITS Pilani.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>For <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>: terabytes of satellite imagery, LiDAR point clouds and borehole logs through custom ML pipelines, scoring collapse risk across 200km of NH-208 at 94% accuracy — months of manual geological survey replaced by inference in under 48 hours.</span></li>
-          <li className="flex gap-1.5"><span>•</span><span>Build systems for the pleasure of it: <span className="font-semibold text-zinc-900 dark:text-white">pikapika</span>, a stack-based concatenative language in Go with a hand-rolled lexer, recursive-descent parser and typed AST. <span className="font-semibold text-zinc-900 dark:text-white">OpenDiff</span>, a Rust and Actix-web pull request reviewer that caches hard to stay under GitHub&apos;s rate limit.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>Fed terabytes of satellite imagery, LiDAR point clouds and borehole logs through custom ML pipelines for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>, scoring collapse risk across 200km of NH-208 at 94% accuracy. Months of manual geological survey, done in under 48 hours.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>I build systems for the pleasure of it. <span className="font-semibold text-zinc-900 dark:text-white">pikapika</span> is a stack-based concatenative language in Go, with a hand-rolled lexer, recursive-descent parser and typed AST. <span className="font-semibold text-zinc-900 dark:text-white">OpenDiff</span> reviews pull requests from a Rust and Actix-web backend that caches hard to stay under GitHub&apos;s rate limit.</span></li>
         </ul>
 
         {/* Provenance strip — who is running this code, above the fold. */}
