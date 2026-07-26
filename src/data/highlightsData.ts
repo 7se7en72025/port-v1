@@ -19,10 +19,12 @@ export const highlightsData: Highlight[] = [
   {
     id: "cncf",
     badge: "CNCF",
-    metric: "3",
+    // Four, not three: 2 in kyverno/kyverno, 1 in litmuschaos/litmus, 1 in
+    // openyurtio/openyurt. Verified against the GitHub search API, 26 Jul 2026.
+    metric: "4",
     metricLabel: "merged upstream",
     title:
-      "Fixes merged into Kyverno and Litmus — CNCF projects running in production clusters",
+      "Fixes merged into Kyverno, Litmus and OpenYurt, three CNCF projects running in production clusters",
     image: "",
     link: "https://github.com/search?q=is%3Apr+author%3A7se7en72025+is%3Amerged+org%3Akyverno&type=pullrequests",
   },
@@ -42,7 +44,7 @@ export const highlightsData: Highlight[] = [
     metric: "53",
     metricLabel: "GitHub stars",
     title:
-      "NYXA-UI — a component library designed, shipped and maintained solo, MIT licensed",
+      "NYXA-UI, a component library designed, shipped and maintained solo, MIT licensed",
     image: "",
     link: "https://github.com/7se7en72025/NYXA-UI",
   },

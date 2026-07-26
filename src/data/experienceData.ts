@@ -126,7 +126,7 @@ export const experiences: ExperienceData[] = [
     location: "BITS Pilani",
     src: "",
     description: `
-      Designed the official Oasis 2025 and Apogee 2026 apps, both shipped to the Play Store and together past 2,000 downloads — Oasis holds 4.6 stars across 18 reviews
+      Designed the official Oasis 2025 and Apogee 2026 apps, both shipped to the Play Store and together past 2,000 downloads. Oasis holds 4.6 stars across 18 reviews
       Owned the screens attendees actually live in during a festival: event schedule, campus map, registration and live crowd density, designed for one-handed use in a crowd on a dying phone battery
       Built the shared design system both apps are drawn from, so a second festival did not mean a second design language
       Handed off specs to the developer teams building in React Native and reviewed builds against them

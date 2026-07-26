@@ -104,6 +104,12 @@ const provenance = [
     href: "https://github.com/search?q=is%3Apr+author%3A7se7en72025+is%3Amerged+org%3Alitmuschaos&type=pullrequests",
   },
   {
+    org: "OpenYurt",
+    note: "CNCF",
+    icon: siCncf,
+    href: "https://github.com/search?q=is%3Apr+author%3A7se7en72025+is%3Amerged+org%3Aopenyurtio&type=pullrequests",
+  },
+  {
     // Sugar Labs is not a CNCF project — it gets the neutral mark, not the badge.
     org: "Sugar Labs",
     note: "31 merged",
@@ -244,7 +250,7 @@ export default function Home() {
         </p>
 
         <ul className="text-[14px] sm:text-[15px] text-zinc-600 dark:text-zinc-300 leading-relaxed mt-4 pl-4">
-          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged into repos I don&apos;t maintain. <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> and <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> are CNCF projects, one enforcing policy on Kubernetes clusters and one breaking them on purpose. <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs&apos;</span> Music Blocks teaches children to program.</span></li>
+          <li className="flex gap-1.5"><span>•</span><span>42 pull requests merged into repos I don&apos;t maintain, across three CNCF projects. <span className="font-semibold text-zinc-900 dark:text-white">Kyverno</span> enforces policy on Kubernetes clusters, <span className="font-semibold text-zinc-900 dark:text-white">Litmus</span> breaks them on purpose, and <span className="font-semibold text-zinc-900 dark:text-white">OpenYurt</span> runs them at the edge, where I stopped yurthub panicking on an EndpointSlice with a nil NodeName. Most of the rest is <span className="font-semibold text-zinc-900 dark:text-white">Sugar Labs&apos;</span> Music Blocks: memory leaks, event listener leaks, render performance.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Designed the <span className="font-semibold text-zinc-900 dark:text-white">Oasis 2025</span> and <span className="font-semibold text-zinc-900 dark:text-white">Apogee 2026</span> apps and sites. If you were on campus for either fest, you used them. Past 2,000 downloads between them, 4.6 stars on Oasis.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Built <a href={siteConfig.wscUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-zinc-900 underline decoration-black/20 underline-offset-[3px] transition-colors hover:decoration-black/60 dark:text-white dark:decoration-white/25 dark:hover:decoration-white/60">WonStepCareer</a> after watching capable batchmates get filtered out by branch and CGPA before a human read their resume. It matches on verified skills instead. Live at BITS Pilani.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>Fed terabytes of satellite imagery, LiDAR point clouds and borehole logs through custom ML pipelines for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>, scoring collapse risk across 200km of NH-208 at 94% accuracy. Months of manual geological survey, done in under 48 hours.</span></li>

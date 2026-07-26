@@ -90,7 +90,7 @@ export const projectsData: Project[] = [
     // Design credit, not engineering credit — the tech list names the design
     // tools because listing a build stack would imply he wrote the app. DVM's
     // dev team shipped it in React Native.
-    description: "Designed the official Oasis 2025 festival app — event schedules, interactive campus maps, and live crowd density, for a festival with 6,000+ footfall. 1K+ downloads, rated 4.6 on Google Play.",
+    description: "Designed the official Oasis 2025 festival app: event schedules, interactive campus maps, and live crowd density, for a festival with 6,000+ footfall. 1K+ downloads, rated 4.6 on Google Play.",
     tech: [{ label: "Figma" }, { label: "Design Systems" }, { label: "UI/UX" }],
     github: "",
     live: "https://play.google.com/store/apps/details?id=com.dvm.oasis2025rn&hl=en_IN",
@@ -136,11 +136,13 @@ export const projectsData: Project[] = [
     backgroundImage: "/project-image/speak-ai.png",
     video: "",
     description:
-      "Sugar Labs' Speak activity rebuilt as an AI-native tool — pairs a small language model with an LLM for fast responses, and adds richer voices via Kokoro synthesis.",
+      "Sugar Labs' Speak activity rebuilt as an AI-native tool. Pairs a small language model with an LLM for fast responses, and adds richer voices via Kokoro synthesis.",
     tech: ["python", "llama", { label: "Kokoro", tooltip: "Kokoro TTS" }],
-    github: "https://github.com/7se7en72025/speak-ai",
+    // Upstream, not the personal fork. The fork reads 1 star; sugarlabs/speak-ai
+    // is the project actually being contributed to.
+    github: "https://github.com/sugarlabs/speak-ai",
     live: "",
-    starsText: "1",
+    starsText: "16",
     hasPin: false,
     status: "building",
   },
@@ -152,7 +154,7 @@ export const projectsData: Project[] = [
     src: "/project-image/apogee-2026.png",
     backgroundImage: "/project-image/apogee-2026.png",
     video: "",
-    description: "Designed the official Apogee 2026 app — event registration, competition tracking, and speaker sessions across a multi-day national technical symposium. 1K+ downloads on Google Play.",
+    description: "Designed the official Apogee 2026 app: event registration, competition tracking, and speaker sessions across a multi-day national technical symposium. 1K+ downloads on Google Play.",
     tech: [{ label: "Figma" }, { label: "Design Systems" }, { label: "UI/UX" }],
     github: "",
     live: "https://play.google.com/store/apps/details?id=org.bitsdvm.apogee2026&hl=en_IN",
@@ -182,7 +184,7 @@ export const projectsData: Project[] = [
     backgroundImage: "/project-image/opendiff.png",
     video: "",
     description:
-      "Browse, diff, and review GitHub pull requests from one place — an Actix-web backend in Rust with MongoDB persistence, live updates over WebSockets, and aggressive client-side caching to stay off the API rate limit.",
+      "Browse, diff, and review GitHub pull requests from one place, on an Actix-web backend in Rust with MongoDB persistence, live updates over WebSockets, and aggressive client-side caching to stay off the API rate limit.",
     tech: [{ label: "Rust" }, { label: "Actix", tooltip: "Actix-web" }, { label: "MongoDB" }, "github"],
     github: "https://github.com/7se7en72025/OpenDiff",
     live: "",
@@ -196,7 +198,7 @@ export const projectsData: Project[] = [
     src: "/project-image/pikapika.png",
     backgroundImage: "/project-image/pikapika.png",
     video: "",
-    description: "A stack-based concatenative language written in Go — hand-rolled lexer, recursive-descent parser, and a typed AST. Pika pika!",
+    description: "A stack-based concatenative language written in Go, with a hand-rolled lexer, recursive-descent parser, and a typed AST. Pika pika!",
     tech: ["go"],
     github: "https://github.com/7se7en72025/pikapika",
     live: "",
