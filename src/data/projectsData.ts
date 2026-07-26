@@ -86,7 +86,7 @@ export const projectsData: Project[] = [
     imageTitle: "Festival App",
     src: "/project-image/oasis-2025.png",
     backgroundImage: "/project-image/oasis-2025.png",
-    video: "/demos/oasis-2025.mp4",
+    video: "",
     // Design credit, not engineering credit — the tech list names the design
     // tools because listing a build stack would imply he wrote the app. DVM's
     // dev team shipped it in React Native.
@@ -98,17 +98,16 @@ export const projectsData: Project[] = [
     status: "live",
   },
   {
-    slug: "apogee-website",
-    title: "Apogee Website",
-    imageTitle: "Festival Site",
+    slug: "apogee-app",
+    title: "Apogee App",
+    imageTitle: "Festival App",
     src: "/project-image/apogee-2026.png",
     backgroundImage: "/project-image/apogee-2026.png",
     video: "",
-    description:
-      "Designed the web front door for Apogee 2026: event listings, registration flow and schedule, drawn from the same design system as the app so the two never disagreed.",
+    description: "Designed the official Apogee 2026 app: event registration, competition tracking, and speaker sessions across a multi-day national technical symposium. 1K+ downloads on Google Play.",
     tech: [{ label: "Figma" }, { label: "Design Systems" }, { label: "UI/UX" }],
     github: "",
-    live: "https://bits-apogee.org",
+    live: "https://play.google.com/store/apps/details?id=org.bitsdvm.apogee2026&hl=en_IN",
     hasPin: true,
     status: "live",
   },
@@ -134,7 +133,7 @@ export const projectsData: Project[] = [
     imageTitle: "Voice Engine",
     src: "/project-image/speak-ai.png",
     backgroundImage: "/project-image/speak-ai.png",
-    video: "",
+    video: "/demos/speak-ai.mp4",
     description:
       "Sugar Labs' Speak activity rebuilt as an AI-native tool. Pairs a small language model with an LLM for fast responses, and adds richer voices via Kokoro synthesis.",
     tech: ["python", "llama", { label: "Kokoro", tooltip: "Kokoro TTS" }],
@@ -147,17 +146,17 @@ export const projectsData: Project[] = [
     status: "building",
   },
   {
-    // Below the first four, so it shows on /projects but not the home grid.
-    slug: "apogee-app",
-    title: "Apogee App",
-    imageTitle: "Festival App",
+    slug: "apogee-website",
+    title: "Apogee Website",
+    imageTitle: "Festival Site",
     src: "/project-image/apogee-2026.png",
     backgroundImage: "/project-image/apogee-2026.png",
-    video: "/demos/apogee-2026.mp4",
-    description: "Designed the official Apogee 2026 app: event registration, competition tracking, and speaker sessions across a multi-day national technical symposium. 1K+ downloads on Google Play.",
+    video: "",
+    description:
+      "Designed the web front door for Apogee 2026: event listings, registration flow and schedule, drawn from the same design system as the app so the two never disagreed.",
     tech: [{ label: "Figma" }, { label: "Design Systems" }, { label: "UI/UX" }],
     github: "",
-    live: "https://play.google.com/store/apps/details?id=org.bitsdvm.apogee2026&hl=en_IN",
+    live: "https://bits-apogee.org",
     hasPin: false,
     status: "live",
   },

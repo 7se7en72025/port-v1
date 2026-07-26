@@ -106,7 +106,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             ) : (
               <video 
                 src={project.video} 
-                className="w-full h-full object-cover" 
+                className="w-full h-full object-contain"
                 controls 
                 autoPlay 
                 muted 

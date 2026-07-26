@@ -19,7 +19,6 @@ import { ClickRipple } from "@/components/ClickRipple";
 import { TypingText } from "@/components/TypingText";
 import { ParallaxLayer } from "@/components/ParallaxLayer";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { DemoReel } from "@/components/DemoReel";
 import {
   siCncf,
   siFigma,
@@ -265,9 +264,6 @@ export default function Home() {
           <li className="flex gap-1.5"><span>•</span><span>Fed terabytes of satellite imagery, LiDAR point clouds and borehole logs through custom ML pipelines for <span className="font-semibold text-zinc-900 dark:text-white">CSIR</span>, scoring collapse risk across 200km of NH-208 at 94% accuracy. Months of manual geological survey, done in under 48 hours.</span></li>
           <li className="flex gap-1.5"><span>•</span><span>I build systems for the pleasure of it. <span className="font-semibold text-zinc-900 dark:text-white">pikapika</span> is a stack-based concatenative language in Go, with a hand-rolled lexer, recursive-descent parser and typed AST. <span className="font-semibold text-zinc-900 dark:text-white">OpenDiff</span> reviews pull requests from a Rust and Actix-web backend that caches hard to stay under GitHub&apos;s rate limit.</span></li>
         </ul>
-
-        {/* Proof the fest apps exist and work, next to the claim that they do. */}
-        <DemoReel />
 
         {/* Provenance strip — who is running this code, above the fold. */}
         <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-2">
